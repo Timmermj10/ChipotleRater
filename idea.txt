@@ -1,0 +1,30 @@
+I saw a Twitter post about a web app that had all the Chipotle locations and associated ratings with said Chipotle's
+
+I want to add on to this idea and build almost a social media platform where people can post pictures live of their portions as well as if the Chipotle had everything they were looking for
+
+Basically the Instagram of Chipotle
+
+Thinking about getting Chipotle? Check the live feed to see if the portions are looking good!
+
+Add Ons -
+    Ratings of Portions
+    Ratings of Staff
+    Whether they were missing some component of your bowl
+    Line Length
+    *Check if Chipotle currently has a deal going on that would grant a free upgrade of some kind*
+
+Problems:
+    We need to scrape all the locations of Chipotle and store them into a Database so we can easily access them from within the API call
+    Chipotle has all of these locations listed @ 
+    https://locations.chipotle.com/
+    TO BUY THIS DATA IS $95 DOLLARS, WTF, ONCE WE GATHER THIS FROM SCRAPING THE CHIPOTLE WEBSITE WE WILL PUBLISH THE DATASET ON GITHUB 
+    https://www.scrapehero.com/store/product/chipotle-store-locations-in-the-usa/
+
+    When we scrape the data on locations of Chipotle we will need to convert the addresses to long and lat values for the API to return, again storing this in the DB 
+    
+
+6/19/2024
+Today we will start the journey of gathering the Chipotle location data with the help of a webscraper!
+The goal is to gather important information about the Chipotle, including: State, City, Address, and Phone number
+We can then use this information to get the longitude and latitude values of the location so we can plot the information on our map!
+
