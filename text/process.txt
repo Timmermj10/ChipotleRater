@@ -1,0 +1,7 @@
+How to test and develop the code:
+
+1. Start the server for the API in a separate terminal by running "node .\server.js"
+
+2. Open the preview of index.html and pop it out to the browser to use inspect element
+
+3. Write code and make changes and view them live!

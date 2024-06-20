@@ -28,3 +28,6 @@ Today we will start the journey of gathering the Chipotle location data with the
 The goal is to gather important information about the Chipotle, including: State, City, Address, and Phone number
 We can then use this information to get the longitude and latitude values of the location so we can plot the information on our map!
 
+6/20/2024
+With the Chipotle data gathered and stored in a CSV now it is time to get it loaded onto a map!
+With the latitude and longitude values I just need to make an API endpoint where the data can be grabbed from for the web app

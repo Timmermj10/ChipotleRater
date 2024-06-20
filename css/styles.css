@@ -1,0 +1,37 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#banner {
+    height: 50px;
+    /* background: #441500; */
+    background: linear-gradient(to right, #AC2318, #441500, #AC2318);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#map {
+    height: calc(98% - 50px);
+}
+
+/* For the clusters of Chipotles */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+    background-color: #AC2318 !important; 
+}
+
+.marker-cluster div {
+    background-color: #AC2318 !important;
+    color: #ffffff !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}

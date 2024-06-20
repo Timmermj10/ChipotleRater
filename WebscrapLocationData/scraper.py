@@ -250,6 +250,7 @@ def write_to_csv(data, filename):
         writer.writeheader()
         for row in data:
             writer.writerow(row)
+
 # The format of the links to each individual state page is: https://locations.chipotle.com/{state_link}
 
 # Now we have a list of locations, each with a state, a link to the state page, and a list of cities in that state with a link to the city page
