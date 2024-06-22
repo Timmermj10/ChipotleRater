@@ -12,7 +12,7 @@ app.use(cors()); // Use cors middleware to enable CORS
 
 let locations = [];
 
-fs.createReadStream('../WebscrapLocationData/chipotle_locations_v2.csv')
+fs.createReadStream('../WebscrapLocationData/cleaned_chipotle_locations_v2.csv')
   .pipe(csvParser())
   .on('data', (row) => {
     locations.push(row);

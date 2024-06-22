@@ -31,3 +31,10 @@ We can then use this information to get the longitude and latitude values of the
 6/20/2024
 With the Chipotle data gathered and stored in a CSV now it is time to get it loaded onto a map!
 With the latitude and longitude values I just need to make an API endpoint where the data can be grabbed from for the web app
+
+6/21/2024
+Wanted to do more with the actual ratings system today, but got side tracked by doing more data cleaning
+I think the data is completely clean now (no more address==name shenanigans), took a lot of time to get a good way to rename the Chipotles
+The, hopefully final, cleaned dataset that we are now using is cleaned_chipotle_locations_v2.csv
+I also added in the modal for when you click on a location as well as disabling other controls when the modal is up using a map overlay
+The modal is very basic as of now and doesn't look great but it is a good start!

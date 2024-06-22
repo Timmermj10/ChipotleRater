@@ -1,0 +1,97 @@
+state,city,address,zip_code,name,phone,latitude,longitude,url,country
+Arizona,Tucson,4857 E Grant Rd,85712,4857 E Grant Rd,(520) 910-0932,32.25177128286577,-110.89006690858098,https://locations.chipotle.com/../az/tucson/4857-e-grant-rd,USA
+California,Bakersfield,3345 Buena Vista Rd,93311,3345 Buena Vista Rd,(661) 529-3575,35.3241043,-119.1285617,https://locations.chipotle.com/../ca/bakersfield/3345-buena-vista-rd,USA
+California,Bakersfield,9723 Panama Ln,93311,9723 Panama Ln,(661) 529-3564,35.2960076,-119.1110519,https://locations.chipotle.com/../ca/bakersfield/9723-panama-ln,USA
+California,Brentwood,7580 Brentwood Blvd,94513,7580 Brentwood Blvd,(925) 390-0147,37.9453441,-121.6958194,https://locations.chipotle.com/../ca/brentwood/7580-brentwood-blvd,USA
+California,Huntington Beach,20962 Magnolia St,92646,20962 Magnolia St,(657) 502-0007,33.8037935,-117.975649,https://locations.chipotle.com/../ca/huntington-beach/20962-magnolia-st,USA
+California,Redwood City,224 Redwood Shores Pkwy,94065,224 Redwood Shores Pkwy,(650) 674-4006,37.52172124999472,-122.25185753841744,https://locations.chipotle.com/../ca/redwood-city/224-redwood-shores-pkwy,USA
+California,Sacramento,2650 Arena Blvd,95834,2650 Arena Blvd,(279) 247-9068,38.6426399,-121.5210512,https://locations.chipotle.com/../ca/sacramento/2650-arena-blvd,USA
+California,San Francisco,525 Market Street,94105,525 Market Street,(415) 278-0461,37.79046409288761,-122.39929950399244,https://locations.chipotle.com/../ca/san-francisco/525-market-street,USA
+California,Sanger,2880 Jensen Ave,93657,2880 Jensen Ave,(816) 763-1350,36.7068473,-119.5774234,https://locations.chipotle.com/../ca/sanger/2880-jensen-ave,USA
+California,Stockton,1205 E Hammer Ln,95210,1205 E Hammer Ln,(209) 800-0870,38.02125776284088,-121.29702545636836,https://locations.chipotle.com/../ca/stockton/1205-e-hammer-ln,USA
+California,Victorville,12304 Palmdale Rd,92392,12304 Palmdale Rd,(442) 219-0230,34.5071638,-117.3959003,https://locations.chipotle.com/../ca/victorville/12304-palmdale-rd,USA
+California,Wildomar,24032 Clinton Keith Rd,92595,24032 Clinton Keith Rd,(951) 574-1277,33.59851897904945,-117.23968004374416,https://locations.chipotle.com/../ca/wildomar/24032-clinton-keith-rd,USA
+Colorado,Castle Rock,5954 Promenade Pkwy.,80108,5954 Promenade Pkwy.,(720) 983-1478,39.4194772,-104.8774765,https://locations.chipotle.com/../co/castle-rock/5954-promenade-pkwy,USA
+Colorado,Colorado Springs,6530 Tutt Blvd,80923,6530 Tutt Blvd,(719) 895-3968,38.9267899,-104.715689,https://locations.chipotle.com/../co/colorado-springs/6530-tutt-blvd,USA
+Florida,Apopka,1215 W Orange Blossom Trl,32712,1215 W Orange Blossom Trl,(689) 336-0006,28.68558985179515,-81.5325605926077,https://locations.chipotle.com/../fl/apopka/1215-w-orange-blossom-trl,USA
+Florida,Fort Pierce,5545 Okeechobee Rd,34947,5545 Okeechobee Rd,(772) 264-4082,27.4174444,-80.3814096,https://locations.chipotle.com/../fl/fort-pierce/5545-okeechobee-rd,USA
+Florida,Haines City,35654 US 27 N,33844,35654 US 27 N,(863) 758-4029,28.118144428863214,-81.64056379851472,https://locations.chipotle.com/../fl/haines-city/35654-us-27-n,USA
+Florida,Inverness,911 W Main St,34450,911 W Main St,(352) 423-7227,28.835558491225328,-82.34120761532687,https://locations.chipotle.com/../fl/inverness/911-w-main-st,USA
+Florida,Jacksonville,11919 Atlantic Blvd,32225,11919 Atlantic Blvd,(904) 893-4518,30.3216706,-81.4954745,https://locations.chipotle.com/../fl/jacksonville/11919-atlantic-blvd,USA
+Florida,Kissimmee,4390 W Vine St.,34746,4390 W Vine St.,(689) 215-5494,28.3028332,-81.4569878,https://locations.chipotle.com/../fl/kissimmee/4390-w-vine-st,USA
+Florida,Longwood,860 W. FL-434,32750,860 W. FL-434,(689) 223-4620,28.697637680556507,-81.3309117246624,https://locations.chipotle.com/../fl/longwood/860-w-fl-434,USA
+Florida,Melbourne,4999 N Wickham Rd,32940,4999 N Wickham Rd,(321) 241-0398,28.18990817924318,-80.67131369386576,https://locations.chipotle.com/../fl/melbourne/4999-n-wickham-rd,USA
+Florida,Minneola,1677 N Hancock Rd,34715,1677 N Hancock Rd,(352) 717-2041,28.5912617,-81.722554,https://locations.chipotle.com/../fl/minneola/1677-n-hancock-rd,USA
+Florida,Miramar,12581 Miramar Pkwy,33027,12581 Miramar Pkwy,(754) 764-6496,25.9790774,-80.3136846,https://locations.chipotle.com/../fl/miramar/12581-miramar-pkwy,USA
+Florida,Orange Park,876 Blanding Blvd,32065,876 Blanding Blvd,(904) 579-7081,30.1425097,-81.76660439999999,https://locations.chipotle.com/../fl/orange-park/876-blanding-blvd,USA
+Georgia,Commerce,30874 US-441 S,30529,30874 US-441 S,(762) 356-8084,34.249905,-83.4605885,https://locations.chipotle.com/../ga/commerce/30874-us-441-s,USA
+Georgia,Dunwoody,8753 Roswell Rd,30350,8753 Roswell Rd,(470) 514-3530,33.995693278542014,-84.35045425014997,https://locations.chipotle.com/../ga/dunwoody/8753-roswell-rd,USA
+Georgia,Grayson,1860 Grayson Hwy,30017,1860 Grayson Hwy,(470) 706-0116,33.900017,-83.96100299999999,https://locations.chipotle.com/../ga/grayson/1860-grayson-hwy,USA
+Georgia,Lawrenceville,1475 Pleasant Hill Rd,30044,1475 Pleasant Hill Rd,(678) 502-7384,33.94073086057992,-84.12273104662705,https://locations.chipotle.com/../ga/lawrenceville/1475-pleasant-hill-rd,USA
+Georgia,Lilburn,4805 Lawrenceville Hwy NW,30047,4805 Lawrenceville Hwy NW,(678) 502-7392,33.8955798055653,-84.14110974175868,https://locations.chipotle.com/../ga/lilburn/4805-lawrenceville-hwy-nw,USA
+Georgia,Pooler,2120 Pooler Pkwy,31322,2120 Pooler Pkwy,(912) 912-2566,32.07882856428843,-81.28265431877384,https://locations.chipotle.com/../ga/pooler/2120-pooler-pkwy,USA
+Georgia,South Fulton,5823 Campbellton Rd SW,30331,5823 Campbellton Rd SW,(404) 779-0786,33.700488,-84.577657,https://locations.chipotle.com/../ga/south-fulton/5823-campbellton-rd-sw,USA
+Idaho,Caldwell,5005 Cleveland Blvd,83605,5005 Cleveland Blvd,(986) 286-4005,43.6345444939054,-116.6451977171793,https://locations.chipotle.com/../id/caldwell/5005-cleveland-blvd,USA
+Idaho,Meridian,1323 W Chinden Blvd,83646,1323 W Chinden Blvd,(208) 918-8810,43.662327,-116.410146,https://locations.chipotle.com/../id/meridian/1323-w-chinden-blvd,USA
+Idaho,Nampa,1260 N Happy Valley Rd,83687,1260 N Happy Valley Rd,(986) 666-7096,43.59559827109034,-116.51270151805558,https://locations.chipotle.com/../id/nampa/1260-n-happy-valley-rd,USA
+Idaho,Twin Falls,118 Cheney Dr W,83301,118 Cheney Dr W,(208) 886-1056,42.5888219,-114.4804354,https://locations.chipotle.com/../id/twin-falls/118-cheney-dr-w,USA
+Illinois,Barrington,550 N. Hough,60010,550 N. Hough,(224) 448-4013,42.15972824404375,-88.13667962349102,https://locations.chipotle.com/../il/barrington/550-n-hough,USA
+Illinois,Chicago,1611 N Western Ave,60647,1611 N Western Ave,(872) 327-9007,41.910493508316556,-87.68645267664556,https://locations.chipotle.com/../il/chicago/1611-n-western-ave,USA
+Illinois,Des Plaines,1361 Lee Street,60018,1361 Lee Street,(224) 354-2558,42.02844912093546,-87.8937404121643,https://locations.chipotle.com/../il/des-plaines/1361-lee-street,USA
+Illinois,Lansing,2302 Thornton Lansing Road,60438,2302 Thornton Lansing Road,,41.568021,-87.559129,https://locations.chipotle.com/../il/lansing/2302-thornton-lansing-road,USA
+Indiana,Evansville,1310 Hirschland Rd,47715,1310 Hirschland Rd,(812) 916-4789,37.98846899999999,-87.473142,https://locations.chipotle.com/../in/evansville/1310-hirschland-rd,USA
+Indiana,Evansville,2800 N Green River Rd,47715,2800 N Green River Rd,(812) 916-4757,38.00270785704432,-87.49291789621333,https://locations.chipotle.com/../in/evansville/2800-n-green-river-rd,USA
+Indiana,Indianapolis,6830 Lake Plaza Dr,46220,6830 Lake Plaza Dr,(317) 588-9053,39.880898976254294,-86.06903060556505,https://locations.chipotle.com/../in/indianapolis/6830-lake-plaza-dr,USA
+Indiana,Lafayette,3235 Builder Dr,47909,3235 Builder Dr,(765) 250-8286,40.3676928,-86.858215,https://locations.chipotle.com/../in/lafayette/3235-builder-dr,USA
+Kansas,Topeka,2001 SE 28th St.,66605,2001 SE 28th St.,(785) 519-6001,39.016739796912624,-95.65120731282808,https://locations.chipotle.com/../ks/topeka/2001-se-28th-st,USA
+Kentucky,Hopkinsville,3100 Fort Campbell Blvd,42240,3100 Fort Campbell Blvd,(270) 632-2973,36.836991,-87.476325,https://locations.chipotle.com/../ky/hopkinsville/3100-fort-campbell-blvd,USA
+Kentucky,Lexington,3900 Fountainblue Lane,40513,3900 Fountainblue Lane,,38.0017395,-84.5756822,https://locations.chipotle.com/../ky/lexington/3900-fountainblue-lane,USA
+Michigan,Commerce Charter Township,273 Haggerty Road,48390,273 Haggerty Road,(947) 214-3059,42.529633071371194,-83.43855359999999,https://locations.chipotle.com/../mi/commerce-charter-township/273-haggerty-road,USA
+Michigan,Detroit,630 Woodward Ave,48226,630 Woodward Ave,(313) 476-3447,42.33096082187779,-83.04564279508915,https://locations.chipotle.com/../mi/detroit/630-woodward-ave,USA
+Michigan,Wixom,28703 S Wixom Rd,48393,28703 S Wixom Rd,(947) 600-7413,42.501882,-83.537111,https://locations.chipotle.com/../mi/wixom/28703-s-wixom-rd,USA
+Minnesota,North Branch,5330 St Croix Trail,55056,5330 St Croix Trail,(651) 243-3824,45.51031829999999,-93.0004737,https://locations.chipotle.com/../mn/north-branch/5330-st-croix-trail,USA
+Mississippi,Oxford,702 Sisk Ave,38655,702 Sisk Ave,(662) 703-3036,34.372679,-89.497931,https://locations.chipotle.com/../ms/oxford/702-sisk-ave,USA
+Missouri,Saint Louis,8650 Olive Blvd,63132,8650 Olive Blvd,(314) 850-3089,38.673796216546954,-90.35943756380634,https://locations.chipotle.com/../mo/saint-louis/8650-olive-blvd,USA
+Montana,Great Falls,1900 10th Ave S,59405,1900 10th Ave S,(406) 604-0586,47.493864634495935,-111.27446541100416,https://locations.chipotle.com/../mt/great-falls/1900-10th-ave-s,USA
+Nevada,Elko,2405 Mountain City Highway,89801,2405 Mountain City Highway,(775) 299-4019,40.83653679871402,-115.79014501471521,https://locations.chipotle.com/../nv/elko/2405-mountain-city-highway,USA
+Nevada,Pahrump,540 S Hwy 160,89048,540 S Hwy 160,(775) 505-2418,36.211458,-115.989945,https://locations.chipotle.com/../nv/pahrump/540-s-hwy-160,USA
+New Jersey,Burlington,1805 Mount Holly Rd,08016,1805 Mount Holly Rd,(609) 733-0519,40.05529779770266,-74.8443594076305,https://locations.chipotle.com/../nj/burlington/1805-mount-holly-rd,USA
+New Jersey,Mt Laurel,3109 Rte 38,08054,3109 Rte 38,(856) 591-2103,39.97109912385459,-74.87555811729843,https://locations.chipotle.com/../nj/mt-laurel/3109-rte-38,USA
+New York,Auburn,1 Plaza Dr,13021,1 Plaza Dr,(315) 975-4943,42.95650275083098,-76.54173460231621,https://locations.chipotle.com/../ny/auburn/1-plaza-dr,USA
+New York,Bronx,1776 Eastchester Rd,10461,1776 Eastchester Rd,(347) 899-2876,40.8494193,-73.8429704,https://locations.chipotle.com/../ny/bronx/1776-eastchester-rd,USA
+New York,Bronx,557 Grand Concourse,10451,557 Grand Concourse,(315) 710-3188,40.81907445524702,-73.927394644792,https://locations.chipotle.com/../ny/bronx/557-grand-concourse,USA
+New York,Buffalo,2236 Delaware Ave,14216,2236 Delaware Ave,(716) 374-6060,42.944869729540585,-78.86870359747586,https://locations.chipotle.com/../ny/buffalo/2236-delaware-ave,USA
+New York,Johnson City,621 Harry L Dr,13790,621 Harry L Dr,(607) 201-0562,42.12490660913323,-75.97445810370353,https://locations.chipotle.com/../ny/johnson-city/621-harry-l-dr,USA
+New York,New York,2575 Broadway,10025,2575 Broadway,(646) 349-6524,40.795380521336966,-73.97172891350918,https://locations.chipotle.com/../ny/new-york/2575-broadway,USA
+New York,New York,274 Madison Avenue,10016,274 Madison Avenue,(212) 689-1245,40.751359871715216,-73.98072137240467,https://locations.chipotle.com/../ny/new-york/274-madison-avenue,USA
+New York,New York,320 Park Ave,10022,320 Park Ave,(212) 754-3098,40.75760253824012,-73.97421427618086,https://locations.chipotle.com/../ny/new-york/320-park-ave,USA
+New York,New York,404 Broadway,10013,404 Broadway,(212) 226-2172,40.7187624898711,-74.00211321513677,https://locations.chipotle.com/../ny/new-york/404-broadway,USA
+New York,Olean,2727 W State St,14760,2727 W State St,(716) 806-3401,42.07665464103093,-78.46155942599377,https://locations.chipotle.com/../ny/olean/2727-w-state-st,USA
+North Carolina,Roanoke Rapids,304 Premier Blvd,27870,304 Premier Blvd,(252) 541-7833,36.424651,-77.635508,https://locations.chipotle.com/../nc/roanoke-rapids/304-premier-blvd,USA
+Ohio,Cincinnati,3639 West Fork Road,45247,3639 West Fork Road,(513) 656-5589,39.18794082944796,-84.60326966010543,https://locations.chipotle.com/../oh/cincinnati/3639-west-fork-road,USA
+Ohio,North Ridgeville,34712 Center Ridge Rd,44039,34712 Center Ridge Rd,(440) 517-3945,41.395484,-82.0030639,https://locations.chipotle.com/../oh/north-ridgeville/34712-center-ridge-rd,USA
+Ohio,Parma,1642 SNOW ROAD,44134,1642 SNOW ROAD,(216) 290-6539,41.4057236225415,-81.69285746994058,https://locations.chipotle.com/../oh/parma/1642-snow-road,USA
+Ohio,Westlake,25350 Detroit Rd,44145,25350 Detroit Rd,(216) 290-6543,41.47060194913525,-81.90046414293957,https://locations.chipotle.com/../oh/westlake/25350-detroit-rd,USA
+Oregon,Tigard,16200 SW Pacific Hwy,97224,16200 SW Pacific Hwy,(971) 405-6117,45.40365799032189,-122.79657808951163,https://locations.chipotle.com/../or/tigard/16200-sw-pacific-hwy,USA
+Oregon,Warrenton,103A US-101,97146,103A US-101,(971) 606-5593,46.16226171222526,-123.89803248094472,https://locations.chipotle.com/../or/warrenton/103a-us-101,USA
+Pennsylvania,Homestead,650 E Waterfront Dr,15120,650 E Waterfront Dr,(412) 685-2107,40.41345620000001,-79.9044459,https://locations.chipotle.com/../pa/homestead/650-e-waterfront-dr,USA
+Pennsylvania,Huntingdon Valley,2090 County Line Rd,19006,2090 County Line Rd,(267) 778-3561,40.17022750742434,-75.071513072999,https://locations.chipotle.com/../pa/huntingdon-valley/2090-county-line-rd,USA
+Pennsylvania,New Castle,2541 W. STATE ST,16101,2541 W. STATE ST,(724) 598-9676,41.011925455494584,-80.3958277787702,https://locations.chipotle.com/../pa/new-castle/2541-w-state-st,USA
+Pennsylvania,Philadelphia,12000 Roosevelt Blvd,19116,12000 Roosevelt Blvd,(267) 423-4859,40.10592767610717,-75.00182750089219,https://locations.chipotle.com/../pa/philadelphia/12000-roosevelt-blvd,USA
+Rhode Island,North Kingstown,118 Gate Rd,02852,118 Gate Rd,(401) 329-3565,41.6055388,-71.45330890000001,https://locations.chipotle.com/../ri/north-kingstown/118-gate-rd,USA
+Tennessee,Franklin,5041 Carothers Pkwy,37067,5041 Carothers Pkwy,(629) 252-7002,35.925353,-86.817309,https://locations.chipotle.com/../tn/franklin/5041-carothers-pkwy,USA
+Tennessee,Memphis,2825 N Germantown Pkwy,38133,2825 N Germantown Pkwy,(901) 883-4427,35.202338051363476,-89.79285428465577,https://locations.chipotle.com/../tn/memphis/2825-n-germantown-pkwy,USA
+Tennessee,Millington,8599 US Highway 51 N,38053,8599 US Highway 51 N,(901) 557-0092,35.36192128106295,-89.89187727055224,https://locations.chipotle.com/../tn/millington/8599-us-highway-51-n,USA
+Texas,Brownsville,2425 Paredes Line Rd,78526,2425 Paredes Line Rd,(956) 594-6474,25.951907717120882,-97.48731247559512,https://locations.chipotle.com/../tx/brownsville/2425-paredes-line-rd,USA
+Texas,Houston,12625 State Highway 249,77086,12625 State Highway 249,(346) 642-4853,29.911632336287436,-95.48176102770924,https://locations.chipotle.com/../tx/houston/12625-state-highway-249,USA
+Texas,Houston,2522 Eldridge Parkway,77082,2522 Eldridge Parkway,(346) 614-4105,29.73536336,-95.62392249,https://locations.chipotle.com/../tx/houston/2522-eldridge-parkway,USA
+Texas,Lubbock,11909 Quaker Ave,79424,11909 Quaker Ave,(806) 758-4086,33.485459,-101.904269,https://locations.chipotle.com/../tx/lubbock/11909-quaker-ave,USA
+Virginia,Fredericksburg,5621 Plank Road,22407,5621 Plank Road,(540) 701-1721,38.291728,-77.56476099999999,https://locations.chipotle.com/../va/fredericksburg/5621-plank-road,USA
+Virginia,Richmond,3044 N ARTHUR ASHE BLVD,23230,3044 N ARTHUR ASHE BLVD,(804) 439-9368,37.57355308655468,-77.46526898024423,https://locations.chipotle.com/../va/richmond/3044-n-arthur-ashe-blvd,USA
+Virginia,Stafford,810 Wonder Rd,22554,810 Wonder Rd,(540) 930-4810,38.42400531917348,-77.4307026432837,https://locations.chipotle.com/../va/stafford/810-wonder-rd,USA
+Virginia,Winchester,120 Merchant St,22603,120 Merchant St,(540) 546-1005,39.220646555249445,-78.13303591286615,https://locations.chipotle.com/../va/winchester/120-merchant-st,USA
+Washington,Poulsbo,21401 Olhava Way,98370,21401 Olhava Way,(360) 994-3145,47.757073,-122.658882,https://locations.chipotle.com/../wa/poulsbo/21401-olhava-way,USA
+West Virginia,Beckley,1080 N Eisenhower Dr,25801,1080 N Eisenhower Dr,(681) 254-4493,37.7994639,-81.1783607,https://locations.chipotle.com/../wv/beckley/1080-n-eisenhower-dr,USA
+Wisconsin,Oshkosh,440 S. Koeller,54902,440 S. Koeller,(920) 479-2372,44.0138673,-88.58173099999999,https://locations.chipotle.com/../wi/oshkosh/440-s-koeller,USA
+Wisconsin,West Bend,855 W Paradise Dr,53095,855 W Paradise Dr,(262) 310-7016,43.3973968,-88.1874967,https://locations.chipotle.com/../wi/west-bend/855-w-paradise-dr,USA
+Wyoming,Laramie,2615 E Grand Ave,82070,2615 E Grand Ave,(307) 223-9430,41.30938658862026,-105.55944063256308,https://locations.chipotle.com/../wy/laramie/2615-e-grand-ave,USA

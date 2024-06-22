@@ -14,7 +14,46 @@
     <div id="banner">Chipotle Rater</div>
     <div id="map"></div>
 
+    <!-- Modal Structure for when we click on a Chipotle location -->
+    <div id="locationModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
+        <div id="locationName">Name: </div>
+        <div id="locationAddress">Address: </div>
+        <div id="locationRating">Rating: </div>
+        <button onclick="addRating()">Add Rating</button>
+        <button onclick="viewRatings()">View Ratings</button>
+        <button onclick="closeModal()">Close</button>
+    </div>
+
+    <!-- Transparent overlay to prevent map interactions when the modal is open -->
+    <div id="mapOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 400; display: none;"></div>
+
     <script>
+        // Functions for the modal
+        function addRating() {
+            console.log("Add rating");
+        }
+
+        function viewRatings() {
+            console.log("View ratings");
+        }
+
+        function openModal() {
+            // Show the modal
+            document.getElementById('locationModal').style.display = 'block';
+
+            // Show the overlay (to prevent map interactions when the modal is open)
+            document.getElementById('mapOverlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            // Hide the modal
+            document.getElementById('locationModal').style.display = 'none';
+
+            // Hide the overlay (to allow for interactions with the map again)
+            document.getElementById('mapOverlay').style.display = 'none';
+        }
+
+        // Initialize the map
         var map = L.map('map', {
             attributionControl: false,
             minZoom: 5
@@ -29,7 +68,6 @@
             iconAnchor: [20, 0], // Point of the icon which will correspond to marker's location
             popupAnchor: [0, 0] // Point from which the popup should open relative to the iconAnchor
         });
-        
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -46,6 +84,7 @@
             .then(data => {
                 var allMarkers = [];
                 data.forEach(location => {
+                    // Add the squareIcon to each of the markers
                     var squareIcon = L.divIcon({
                         className: 'square-icon',
                         html: `<div style="background-color: rgba(68, 21, 0, 1); width: 40px; height: 40px;"><p>${location.name}</p><p>${location.rating}</p></div>`,
@@ -53,8 +92,21 @@
                         iconAnchor: [20, 0],
                         popupAnchor: [0, 0]
                     });
-
+                    
+                    // Define the marker at the given location, give it the custom icon
                     var marker = L.marker([location.latitude, location.longitude], {icon: customIcon});
+                    
+                    // Update the onClick function for the markers to display the modal
+                    marker.on('click', function() {
+                        document.getElementById('locationName').textContent = 'Name: ' + location.name;
+                        document.getElementById('locationAddress').textContent = 'Address: ' + location.address;
+                        document.getElementById('locationRating').textContent = 'Rating: ' + location.rating;
+
+                        // Call the openModal function
+                        openModal();
+                    });
+
+                    // Adjustments to the tooltip
                     marker.bindTooltip(location.name, {
                         permanent: false,
                         direction: 'top',
@@ -65,6 +117,7 @@
 
                 map.addLayer(markers);
 
+                // When we zoom far enough in, change the icon to the squareIcon
                 map.on('zoomend', function() {
                     var zoomlevel = map.getZoom();
                     allMarkers.forEach(item => {
