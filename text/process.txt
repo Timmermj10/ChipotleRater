@@ -1,7 +1,10 @@
 How to test and develop the code:
 
-1. Start the server for the API in a separate terminal by running "node .\server.js"
+1. Start the Node server for the API in a separate terminal by running "node .\server.js"
 
-2. Open the preview of index.html and pop it out to the browser to use inspect element
+2. Start the Node server for the PostgreSQL16 Database in a separate terminal by running "node .\database.js"
 
-3. Write code and make changes and view them live!
+3. Open the preview of index.html and pop it out to the browser to use inspect element
+
+4. Write code and make changes and view them live!
+
