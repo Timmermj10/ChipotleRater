@@ -38,3 +38,9 @@ I think the data is completely clean now (no more address==name shenanigans), to
 The, hopefully final, cleaned dataset that we are now using is cleaned_chipotle_locations_v2.csv
 I also added in the modal for when you click on a location as well as disabling other controls when the modal is up using a map overlay
 The modal is very basic as of now and doesn't look great but it is a good start!
+
+7/3/2024
+Figured out some of the database problems today and successfully submitted a review to the database! Still can't seem to get PSQL working in the 
+VSCODE terminal, but I can in the terminal that comes with PostgreSQL16. I am also using pgAdmin 4 to view the database in the GUI that has
+been created! All around feeling good about seeing the data in the database, now I have to figure out if I want accounts and if I want posts to
+be linked to users accounts and what not. More design work needed on the database, but feeling positive!

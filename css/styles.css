@@ -35,3 +35,27 @@ body, html {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
 }
+
+#ratingModal .slider {
+    width: 100%;
+    margin: 10px 0;
+}
+#ratingForm {
+    display: flex;
+    flex-direction: column;
+}
+#ratingForm label {
+    margin-top: 10px;
+}
+#ratingForm button {
+    margin-top: 20px;
+}
+
+/* Close button styles */
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
