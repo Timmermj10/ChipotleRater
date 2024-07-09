@@ -44,3 +44,9 @@ Figured out some of the database problems today and successfully submitted a rev
 VSCODE terminal, but I can in the terminal that comes with PostgreSQL16. I am also using pgAdmin 4 to view the database in the GUI that has
 been created! All around feeling good about seeing the data in the database, now I have to figure out if I want accounts and if I want posts to
 be linked to users accounts and what not. More design work needed on the database, but feeling positive!
+
+7/9/2024
+Moved past the basic testing database that we were working with previously. Allowed for creation of accounts in a future update so users can be
+tied to their reviews on different Chipotles! Adjusted all of the database req uests as well as made a schema in the database folder. 
+Added mock reviews to different Chipotles and am able to view them separately! Very excited with what got done today and am looking to add user
+functionality next!

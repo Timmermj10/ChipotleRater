@@ -1,8 +1,8 @@
 How to test and develop the code:
 
-1. Start the Node server for the API in a separate terminal by running "node .\server.js"
+1. Start the Node server for the API in a separate terminal by running "node .\server.js", this will allow the map to viewed locally
 
-2. Start the Node server for the PostgreSQL16 Database in a separate terminal by running "node .\database.js"
+2. Start the Node server for the PostgreSQL16 Database in a separate terminal by running "node .\database.js", this will allow for you to post reviews
 
 3. Open the preview of index.html and pop it out to the browser to use inspect element
 

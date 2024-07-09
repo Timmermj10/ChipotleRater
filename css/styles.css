@@ -59,3 +59,9 @@ body, html {
     padding: 10px;
     cursor: pointer;
 }
+
+/* Rating styles */
+.rating-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}

@@ -17,11 +17,12 @@
     <!-- Modal Structure for when we click on a Chipotle location -->
     <div id="locationModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
         <span onclick="closeLocationModal()" class='close-button'>X</span>
+        <input type="hidden" id="hiddenLocationId" name="locationId"> <!-- This will be used to store the location ID -->
         <div id="locationName">Name: </div>
         <div id="locationAddress">Address: </div>
         <div id="locationRating">Rating: </div>
-        <button onclick="addRating()">Add Rating</button>
-        <button onclick="viewRatings()">View Ratings</button>
+        <button onclick="openRatingModal()">Add Rating</button>
+        <button onclick="viewReviewsModal()">View Ratings</button>
     </div>
 
     <div id="ratingModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
@@ -44,6 +45,13 @@
         </form>
     </div>
 
+    <!-- View Ratings Modal Structure -->
+    <div id="viewRatingsModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px; max-height: 80%; overflow-y: auto;">
+        <span onclick="closeViewReviewsModal()" class='close-button'>X</span>
+        <h2>Ratings</h2>
+        <div id="ratingsContainer" style="overflow-y: auto; max-height: 300px;"></div>
+    </div>
+
     <!-- Transparent overlay to prevent map interactions when the modal is open -->
     <div id="mapOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 400; display: none;"></div>
 
@@ -61,15 +69,6 @@
 
             // Optionally, reset the extra comments section
             document.getElementById('extraComments').value = '';
-        }
-
-        // Functions for the location modal
-        function addRating() {
-            openRatingModal();
-        }
-
-        function viewRatings() {
-            console.log("View ratings");
         }
 
         function openLocationModal() {
@@ -90,7 +89,7 @@
 
         // Functions for the rating modal
         function openRatingModal() {
-            // The overlay will still be up from the location modal
+            // The overlay will still be up from the location and rating modals
 
             // Show the rating modal
             document.getElementById('ratingModal').style.display = 'block';
@@ -103,12 +102,49 @@
             document.getElementById('ratingModal').style.display = 'none';
         }
 
+        function viewReviewsModal() {
+            const locationId = document.getElementById('hiddenLocationId').value;
+            fetch(`http://localhost:3001/api/ratings/${locationId}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayRatings(data);
+
+                    // Show the view ratings modal
+                    document.getElementById('viewRatingsModal').style.display = 'block';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function closeViewReviewsModal() {
+            // The overlay will still be up from the location modal
+
+            // Hide the rating modal
+            document.getElementById('viewRatingsModal').style.display = 'none';
+        }
+
+        function displayRatings(ratings) {
+            console.log(ratings);
+            const container = document.getElementById('ratingsContainer');
+            container.innerHTML = ''; // Clear previous ratings
+            ratings.forEach(rating => {
+                const ratingElement = document.createElement('div');
+                ratingElement.classList.add('rating-item');
+                ratingElement.innerHTML = `
+                    <p>Quality: ${rating.food_quality / 2}/5</p>
+                    <p>Amount: ${rating.food_amount / 2}/5</p>
+                    <p>Service: ${rating.service_quality / 2}/5</p>
+                    <p>Comments: ${rating.extra_comments}</p>
+                `;
+                container.appendChild(ratingElement);
+            });
+        }
+
         // Handle form submission for the ratings form
         document.getElementById('ratingForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = {
-                locationName: document.getElementById('locationName').textContent.replace('Name: ', ''),
+                locationId: document.getElementById('hiddenLocationId').value,
                 foodQuality: document.getElementById('foodQuality').value,
                 foodAmount: document.getElementById('foodAmount').value,
                 serviceQuality: document.getElementById('serviceQuality').value,
@@ -125,7 +161,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Rating submitted!');
                 // Reset the slider values
                 resetSliders();
                 // Close the ratings modal
@@ -183,6 +218,7 @@
             .then(response => response.json())
             .then(data => {
                 var allMarkers = [];
+                var index = 1;
                 data.forEach(location => {
                     // Add the squareIcon to each of the markers
                     var squareIcon = L.divIcon({
@@ -194,13 +230,21 @@
                     });
                     
                     // Define the marker at the given location, give it the custom icon
-                    var marker = L.marker([location.latitude, location.longitude], {icon: customIcon});
+                    var marker = L.marker([location.latitude, location.longitude], 
+                    {
+                        icon: customIcon,
+                        locationId: index
+                    });
                     
                     // Update the onClick function for the markers to display the modal
                     marker.on('click', function() {
                         document.getElementById('locationName').textContent = 'Name: ' + location.name;
                         document.getElementById('locationAddress').textContent = 'Address: ' + location.address;
                         document.getElementById('locationRating').textContent = 'Rating: ' + location.rating;
+                        document.getElementById('hiddenLocationId').value = this.options.locationId;
+
+                        // Retrieve the location ID from the marker
+                        var locationId = this.options.locationId;
 
                         // Call the openLocationModal function
                         openLocationModal();
@@ -213,6 +257,9 @@
                     });
                     markers.addLayer(marker);
                     allMarkers.push({marker: marker, squareIcon: squareIcon});
+
+                    // Increment the index
+                    index++;
                 });
 
                 map.addLayer(markers);
