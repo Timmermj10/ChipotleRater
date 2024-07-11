@@ -12,7 +12,56 @@
 </head>
 <body>
     <div id="banner">Chipotle Rater</div>
-    <div id="map"></div>
+    <div id="map">
+        <div id="createAccountIcon" onclick="openSignInModal()">
+            <img src="images/add-user.png" alt="Create Account" style="width: 50px; height: 50px;"> <!-- <a href="https://www.flaticon.com/free-icons/add-user" title="add user icons">Add user icons created by Good Ware - Flaticon</a> -->
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <span onclick="closeSignInModal(event)" class='close-button'>X</span>
+        <h2>Sign In</h2>
+        <form id="signInForm">
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter Email" required>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter Password" required>
+            <div class="action-buttons">
+                <div class="top-buttons"> <!-- New div for top row buttons -->
+                    <button type="button" class="forgot-password" onclick="forgotPassword()">Forgot Password</button>
+                    <button onclick="switchToSignUp(event)">Sign Up</button>
+                </div>
+                <button type="submit" class="login-button">Login</button> <!-- Separate button for login -->
+            </div>
+        </form>
+    </div>
+
+    <!-- Account Creation Modal -->
+    <div id="accountCreationModal" class="modal">
+        <span onclick="closeAccountCreationModal(event)" class='close-button'>X</span>
+        <h2>Create Account</h2>
+        <form id="accountCreationForm">
+            <input type="text" id="username" name="username" placeholder="Enter Username" required>
+            <input type="email" id="email" name="email" placeholder="Enter Email" required>
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter Password" required>
+            <input type="password" id="newPasswordAgain" name="newPasswordAgain" placeholder="Confirm Password" required>
+            <div class="action-buttons">
+                <div class="top-buttons"> <!-- Adjusted for account creation context -->
+                    <!-- Typically, "Forgot Password" is not relevant for account creation, so it's omitted -->
+                    <button onclick="switchToSignIn(event)">Sign In</button> <!-- Assuming a function to switch modals -->
+                </div>
+                <button type="submit" class="create-account-button">Create Account</button> <!-- Adjusted button for account creation -->
+            </div>
+        </form>
+    </div>
+
+    <!-- User Info Modal -->
+    <div id="userInfoModal" class="modal">
+        <span onclick="closeAccountInfoModal()" class='close-button'>X</span>
+        <div class="modal-content">
+            <p id="userNameDisplay"></p>
+            <button id="logoutButton" onclick="logoutUser()">Logout</button>
+        </div>
+    </div>
 
     <!-- Modal Structure for when we click on a Chipotle location -->
     <div id="locationModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
@@ -138,6 +187,97 @@
                 container.appendChild(ratingElement);
             });
         }
+        
+        function openSignInModal() {
+            // Show the overlay (to prevent map interactions when the modal is open)
+            document.getElementById('mapOverlay').style.display = 'block';
+
+            // Display the sign in modal
+            document.getElementById('signInModal').style.display = 'block';
+        }
+
+        function closeSignInModal() {
+            // Show the overlay (to prevent map interactions when the modal is open)
+            document.getElementById('mapOverlay').style.display = 'none';
+
+            // Hide the sign in modal
+            document.getElementById('signInModal').style.display = 'none';
+        }
+
+        function openAccountCreationModal() {
+            // Show the overlay (to prevent map interactions when the modal is open)
+            document.getElementById('mapOverlay').style.display = 'block';
+
+            // Display the account creation modal
+            document.getElementById('accountCreationModal').style.display = 'block';
+        }
+
+        function closeAccountCreationModal() {
+            // Hide the overlay
+            document.getElementById('mapOverlay').style.display = 'none';
+
+            // Hide the account creation modal
+            document.getElementById('accountCreationModal').style.display = 'none';
+        }
+
+        function closeAccountInfoModal() {
+            // Hide the overlay
+            document.getElementById('mapOverlay').style.display = 'none';
+
+            // Hide the account info modal
+            document.getElementById('userInfoModal').style.display = 'none';
+        }
+
+        function switchToSignUp(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            closeSignInModal(); // Close the Sign In Modal
+            openAccountCreationModal(); // Open the Account Creation Modal
+        }
+
+        function switchToSignIn(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            closeAccountCreationModal(); // Open the Account Creation Modal
+            openSignInModal(); // Close the Sign In Modal
+        }
+
+        function logoutUser() {
+            // Remove the user token from localStorage
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('username');
+
+            // Close the user info modal
+            document.getElementById('userInfoModal').style.display = 'none';
+
+            // Refresh the page to update the UI (this needed to be adjusted to do this without refreshing the page)
+            window.location.reload();
+        }
+
+        // Function to check if the user is logged in
+        function checkUserLogin() {
+            // Example check for user token in localStorage
+            return localStorage.getItem('userToken') !== null;
+        }
+        
+        // Function to change the icon and set up the new click behavior
+        function updateUserIcon() {
+            const userIcon = document.getElementById('createAccountIcon');
+            const userName = localStorage.getItem('userName'); // Assuming the username is stored in localStorage
+
+            // Change the icon to a user profile icon
+            userIcon.innerHTML = '<img src="images/user.png" alt="User Profile" style="width: 50px; height: 50px;">'; // <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a>
+
+            // Change the onclick behavior to show the username
+            userIcon.onclick = function() {
+                const userName = localStorage.getItem('username'); // Assuming username is stored in localStorage
+                document.getElementById('userNameDisplay').innerText = `Logged in as: ${userName}`;
+                document.getElementById('userInfoModal').style.display = 'block';
+            };
+        }
 
         // Handle form submission for the ratings form
         document.getElementById('ratingForm').addEventListener('submit', function(event) {
@@ -186,6 +326,111 @@
             updateSliderLabel('foodQuality', 'foodQualityValue');
             updateSliderLabel('foodAmount', 'foodAmountValue');
             updateSliderLabel('serviceQuality', 'serviceQualityValue');
+
+            if (checkUserLogin()) {
+                updateUserIcon();
+            }
+        });
+
+        // Listen for account creation
+        document.getElementById('accountCreationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('newPassword').value,
+                confirmPassword: document.getElementById('newPasswordAgain').value,
+            };
+
+            // Email validation
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email pattern
+            if (!emailPattern.test(formData.email)) {
+                alert('Please enter a valid email address.');
+                return; // Stop the function if the email is invalid
+            }
+
+            // Password match validation
+            if (formData.password !== formData.confirmPassword) {
+                alert('The passwords do not match.');
+                return; // Stop the function if the passwords do not match
+            }
+
+            // Simple client-side validation example (should be more comprehensive)
+            if (formData.password.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                return;
+            }
+
+            fetch('http://localhost:3001/api/create-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    // Close the modal and reset the form
+                    document.getElementById('accountCreationModal').style.display = 'none';
+                    document.getElementById('mapOverlay').style.display = 'none';
+                    document.getElementById('accountCreationForm').reset();
+                    alert('Account created successfully!');
+                } else {
+                    alert('Failed to create account: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Listen for sign in form submission
+        document.getElementById('signInForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const formData = {
+                email: document.getElementById('loginEmail').value,
+                password: document.getElementById('loginPassword').value,
+            };
+            
+            fetch('http://localhost:3001/api/sign-in', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    // User is successfully validated
+                    // Store the login state in localStorage or sessionStorage
+                    localStorage.setItem('isLoggedIn', 'true');
+                    // Optionally, store user token or ID
+                    localStorage.setItem('userToken', data.token);
+                    // Store username or user ID for personalization
+                    localStorage.setItem('username', data.username); // Assuming 'username' is part of the response
+
+                    // Redirect user or update UI to indicate successful login
+                    // Close the modal, hide the overlay, reset the form
+                    document.getElementById('signInModal').style.display = 'none';
+                    document.getElementById('mapOverlay').style.display = 'none';
+                    document.getElementById('signInForm').reset();
+                    alert('Sign in successful!');
+                    
+                    // Refresh the page to update the UI (this needed to be adjusted to do this without refreshing the page)
+                    window.location.reload();
+                } else {
+                    alert('Failed to sign in: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         });
 
         // Initialize the map

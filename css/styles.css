@@ -18,8 +18,19 @@ body, html {
     align-items: center;
     justify-content: center;
 }
+
 #map {
     height: calc(98% - 50px);
+}
+
+#createAccountIcon {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above the map layers */
+    width: 30px; /* Width of the icon */
+    height: 60px; /* Height of the icon, including head and body */
 }
 
 /* For the clusters of Chipotles */
@@ -64,4 +75,89 @@ body, html {
 .rating-item {
     border-bottom: 1px solid #ccc;
     padding: 10px;
+}
+
+/* General Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+    width: 300px; /* Adjust width as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+    float: right;
+    cursor: pointer;
+}
+
+.modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal label {
+    margin-bottom: 5px;
+}
+
+.modal input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Specific Styles for Buttons */
+#signInModal button,
+#accountCreationModal button {
+    background-color: #007bff;
+    color: white;
+}
+
+#signInModal button:hover,
+#accountCreationModal button:hover {
+    background-color: #0056b3;
+}
+
+.forgot-password {
+    background: none;
+    color: #007bff;
+    padding: 0;
+    margin: 0;
+}
+
+/* Align Forgot Password and Sign Up/Login Submit Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Adjust spacing between rows as needed */
+}
+
+.action-buttons button {
+    flex-grow: 1;
+    margin: 5px;
 }

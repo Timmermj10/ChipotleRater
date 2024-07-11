@@ -44,6 +44,53 @@ app.get('/api/ratings/:locationId', async (req, res) => {
   }
 });
 
+// API endpoint to handle account creation
+app.post('/api/create-account', async (req, res) => {
+  const { username, email, password, confirmPassword } = req.body;
+
+  try {
+    const query = 'INSERT INTO users(username, email, password_hash) VALUES($1, $2, $3)';
+    const values = [username, email, password];
+
+    await pool.query(query, values);
+
+    res.status(200).json({ message: 'Account created successfully', success: true });
+  } catch (error) {
+    console.error('Error creating account', error);
+    res.status(500).json({ message: 'Error creating account', success: false });
+  }
+});
+
+// API endpoint to handle account sign-in
+app.post('/api/sign-in', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    let query = 'SELECT * FROM users WHERE email = $1';
+    let values = [email];
+
+    let result = await pool.query(query, values);
+
+    if (result.rows.length === 0) {
+      res.status(200).json({ message: 'No account with email', success: false });
+    }
+
+    query = 'SELECT * FROM users WHERE email = $1 AND password_hash = $2';
+    values = [email, password];
+
+    result = await pool.query(query, values);
+    
+    if (result.rows.length === 1) {
+      res.status(200).json({ message: 'Login successful', success: true, username: result.rows[0].username });
+    } else {
+      res.status(401).json({ message: 'Login failed, wrong password', success: false });
+    }
+  } catch (error) {
+    console.error('Error logging in', error);
+    res.status(500).json({ message: 'Error logging in', success: false });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
