@@ -4,9 +4,9 @@ body, html {
     padding: 0;
     overflow: hidden;
 }
+
 #banner {
     height: 50px;
-    /* background: #441500; */
     background: linear-gradient(to right, #AC2318, #441500, #AC2318);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
@@ -17,6 +17,7 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2000;
 }
 
 #map {
@@ -81,6 +82,7 @@ body, html {
 .modal {
     display: none;
     position: fixed;
+    font-family: 'Montserrat', sans-serif;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -107,15 +109,15 @@ body, html {
     flex-direction: column;
 }
 
-.modal label {
-    margin-bottom: 5px;
-}
-
 .modal input {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #441500;
+    box-sizing: border-box; 
+    font-size: large;
+    width: 100%;
+    padding: 0;
 }
 
 .modal button {
@@ -124,40 +126,156 @@ body, html {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-}
-
-/* Specific Styles for Buttons */
-#signInModal button,
-#accountCreationModal button {
-    background-color: #007bff;
+    background-color: #441500;
     color: white;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-#signInModal button:hover,
-#accountCreationModal button:hover {
-    background-color: #0056b3;
+input:focus {
+    outline: none;
 }
 
-.forgot-password {
-    background: none;
-    color: #007bff;
+/* Sign In Modal Styles */
+.modal h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #441500;
+}
+
+#loginEmail, #loginPassword {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #441500;
+    box-sizing: border-box; 
+    font-size: large;
+    width: 100%;
+    padding: 0;
+}
+
+.modal .top-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size:small;
+}
+
+.modal .top-buttons button {
+    background-color: transparent;
+    padding: 2px;
+    text-decoration: underline;
+}
+
+/* Login Button */
+.modal button.login-button {
+    width: 100%; /* Make the button span the full width of its parent */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    /* Other styling properties for the button */
+}
+
+/* Ensure the container of the button does not have padding or margin on the sides that could prevent the button from spanning the full width */
+.modal .button-container {
     padding: 0;
     margin: 0;
 }
 
-/* Align Forgot Password and Sign Up/Login Submit Buttons */
-.action-buttons {
+#rememberMe {
+    accent-color: #441500;
+    margin: 0px;
+    align-items: center;
+}
+
+.remember-me {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.remember-me label {
+    margin-left: 5px;
+}
+
+.forgot-password {
+    color: #441500 !important;
+    margin-top: 0px !important;
+}
+
+.separator {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 1px;
+    border-bottom: 1px solid #441500;
+}
+
+.signup-section {
+    text-align: center;
+}
+
+.signup-section button {
+    width: 100%; /* Make the button span the full width of its parent */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.signup-section .signup-text .no-account p {
+    font-weight: bold;
+}
+
+/* Account creation modal styles */
+#accountCreationModal .account-details {
+    margin-bottom: 15px;
+}
+
+.create-account-button, .signInButton button, #logoutButton {
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.signInText p {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Account info styles */
+.sidebar {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: calc(100%);
+    width: 0; 
+    position: fixed;
+    z-index: 1000;
+    top: 0px; 
+    right: 0px;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    color: #441500;
 }
 
-.top-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px; /* Adjust spacing between rows as needed */
+/* Sidebar content */
+.sidebar h2, .sidebar p {
+    padding: 10px 15px;
 }
 
-.action-buttons button {
-    flex-grow: 1;
-    margin: 5px;
+/* Show the sidebar */
+.sidebar.open {
+    width: 250px;
+    overflow-y: auto;
+}
+
+#logoutButton {
+    margin: 0 auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 90%;
+    background-color: #441500;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
 }

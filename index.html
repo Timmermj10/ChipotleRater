@@ -23,15 +23,39 @@
         <span onclick="closeSignInModal(event)" class='close-button'>X</span>
         <h2>Sign In</h2>
         <form id="signInForm">
-            <input type="email" id="loginEmail" name="loginEmail" placeholder="Enter Email" required>
-            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter Password" required>
-            <div class="action-buttons">
-                <div class="top-buttons"> <!-- New div for top row buttons -->
-                    <button type="button" class="forgot-password" onclick="forgotPassword()">Forgot Password</button>
-                    <button onclick="switchToSignUp(event)">Sign Up</button>
-                </div>
-                <button type="submit" class="login-button">Login</button> <!-- Separate button for login -->
+            <div class="account-details">
+                <input type="email" id="loginEmail" name="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required>
             </div>
+            
+            <div class="top-buttons">
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember Me</label>
+                </div>
+                <div class="forgot-password">
+                    <button type="button" class="forgot-password" onclick="forgotPassword()">Forgot Password?</button>
+                </div>
+            </div>
+            <div class="bottom-buttons">
+                <button type="submit" class="login-button">Sign in</button> <!-- Separate button for login -->
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="signup-section">
+                <div class="signup-text">
+                    <div class="no-account">
+                        <p>No account?</p>
+                    </div>
+                    <div class="create-account">
+                        <p>Start rating today!</p>
+                    </div>
+                </div>
+                <div class="signup-button">
+                    <button onclick="switchToSignUp(event)">Create an account</button>
+                </div>
+            </div> <!-- End of signup section -->
         </form>
     </div>
 
@@ -40,26 +64,47 @@
         <span onclick="closeAccountCreationModal(event)" class='close-button'>X</span>
         <h2>Create Account</h2>
         <form id="accountCreationForm">
-            <input type="text" id="username" name="username" placeholder="Enter Username" required>
-            <input type="email" id="email" name="email" placeholder="Enter Email" required>
-            <input type="password" id="newPassword" name="newPassword" placeholder="Enter Password" required>
-            <input type="password" id="newPasswordAgain" name="newPasswordAgain" placeholder="Confirm Password" required>
+            <div class="account-details">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Password" required>
+                <input type="password" id="newPasswordAgain" name="newPasswordAgain" placeholder="Confirm Password" required>
+            </div>
             <div class="action-buttons">
-                <div class="top-buttons"> <!-- Adjusted for account creation context -->
-                    <!-- Typically, "Forgot Password" is not relevant for account creation, so it's omitted -->
-                    <button onclick="switchToSignIn(event)">Sign In</button> <!-- Assuming a function to switch modals -->
-                </div>
                 <button type="submit" class="create-account-button">Create Account</button> <!-- Adjusted button for account creation -->
+            </div>
+            <div class="separator"></div>
+            <div class="signIn">
+                <div class="signInText">
+                    <p>Already have an account?</p>
+                </div>
+                <div class="signInButton">
+                    <button onclick="switchToSignIn(event)">Sign In</button>
+                </div>
             </div>
         </form>
     </div>
 
-    <!-- User Info Modal -->
-    <div id="userInfoModal" class="modal">
-        <span onclick="closeAccountInfoModal()" class='close-button'>X</span>
-        <div class="modal-content">
-            <p id="userNameDisplay"></p>
-            <button id="logoutButton" onclick="logoutUser()">Logout</button>
+    <div id="userSidebar" class="sidebar">
+        <span onclick="closeAccountInfoSidebar()" class='close-button'>X</span>
+        <h2>User Information</h2>
+        <p id="usernameDisplay">Username: </p>
+
+        <div class="home-location">
+            <span id="homeLocation">Home Location: </span>
+            <button id="homeLocationName" onclick="zoomToHomeLocation()">New York City</button>
+        </div>
+
+        <div class="view-my-reviews">
+            <button id="homeLocationBtn">View my Reviews</button>
+        </div>
+
+        <div class="account-settings">
+            <button id="accountSettingsButton">Account Settings</button> 
+        </div>
+
+        <div class="logout-button">
+            <button id="logoutButton" onclick="logoutUser()">Logout</button> 
         </div>
     </div>
 
@@ -72,6 +117,7 @@
         <div id="locationRating">Rating: </div>
         <button onclick="openRatingModal()">Add Rating</button>
         <button onclick="viewReviewsModal()">View Ratings</button>
+        <button onclick="setHomeLocation()">Set Home Location</button>
     </div>
 
     <div id="ratingModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
@@ -220,12 +266,12 @@
             document.getElementById('accountCreationModal').style.display = 'none';
         }
 
-        function closeAccountInfoModal() {
+        function closeAccountInfoSidebar() {
             // Hide the overlay
-            document.getElementById('mapOverlay').style.display = 'none';
+            // document.getElementById('mapOverlay').style.display = 'none';
 
-            // Hide the account info modal
-            document.getElementById('userInfoModal').style.display = 'none';
+            // Remove the sidebar
+            document.getElementById('userSidebar').classList.remove('open');
         }
 
         function switchToSignUp(event) {
@@ -246,37 +292,118 @@
 
         function logoutUser() {
             // Remove the user token from localStorage
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('username');
+            localStorage.clear();
 
-            // Close the user info modal
-            document.getElementById('userInfoModal').style.display = 'none';
+            // Close the user info sidebar
+            closeAccountInfoSidebar();
 
             // Refresh the page to update the UI (this needed to be adjusted to do this without refreshing the page)
-            window.location.reload();
+            // window.location.reload();
+            updateUserIcon();
         }
 
         // Function to check if the user is logged in
         function checkUserLogin() {
             // Example check for user token in localStorage
-            return localStorage.getItem('userToken') !== null;
+            return localStorage.getItem('isLoggedIn') !== null;
         }
         
         // Function to change the icon and set up the new click behavior
         function updateUserIcon() {
             const userIcon = document.getElementById('createAccountIcon');
-            const userName = localStorage.getItem('userName'); // Assuming the username is stored in localStorage
+            const userName = localStorage.getItem('username'); // Assuming the username is stored in localStorage
 
-            // Change the icon to a user profile icon
-            userIcon.innerHTML = '<img src="images/user.png" alt="User Profile" style="width: 50px; height: 50px;">'; // <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a>
+            if (userName) {
+                // User is logged in, change the icon to a user profile icon
+                userIcon.innerHTML = '<img src="images/user.png" alt="User Profile" style="width: 50px; height: 50px;">'; // <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a>
 
-            // Change the onclick behavior to show the username
-            userIcon.onclick = function() {
-                const userName = localStorage.getItem('username'); // Assuming username is stored in localStorage
-                document.getElementById('userNameDisplay').innerText = `Logged in as: ${userName}`;
-                document.getElementById('userInfoModal').style.display = 'block';
-            };
+                // Change the onclick behavior to show the username
+                userIcon.onclick = function() {
+                    // Update the sidebar content
+                    document.getElementById('usernameDisplay').textContent = "Username: " + `${userName}`;
+                    // document.getElementById('homeLocation').textContent = "Home Location: " + homeLocation;
+                    // document.getElementById('recentReview').textContent = "Recent Review: " + recentReview;
+
+                    // Show the sidebar
+                    document.getElementById('userSidebar').classList.add('open');
+                };
+                // console.log('User is logged in');
+            } else {
+                // User is not logged in, change the icon back to the default create account icon
+                userIcon.innerHTML = '<img src="images/add-user.png" alt="Create Account" style="width: 50px; height: 50px;">'
+
+                // Optionally, update the onclick behavior for the create account icon
+                userIcon.onclick = function() {
+                    openSignInModal();
+                };
+                // console.log('User is logged out');
+            }
+        }
+
+        // Example using a generic map object
+        function zoomToHomeLocation() {
+            // Attempt to retrieve the home location from local storage
+            var storedLocation = localStorage.getItem('homeLocationCoords');
+            console.log(storedLocation);
+
+            // Default coordinates if no home location is stored
+            var lat = 40.7128;
+            var lng = -74.0060;
+
+            // Check if a home location was found in local storage
+            if (storedLocation) {
+                // Parse the stored location back into an object
+                var locationObj = JSON.parse(storedLocation);
+                lat = locationObj.lat;
+                lng = locationObj.lng;
+
+                // Use the coordinates to set the map's view
+                map.setView([lat, lng], 18);
+            }
+            // If there is no home location
+            else {
+                alert('No home location found. Please set a home location in your account settings.');
+            }
+        }
+
+        // Function to set the home location
+        function setHomeLocation() {
+            if (!checkUserLogin()) {
+                alert('Please log in to set a home location.');
+                return;
+            }
+
+            // Grab the location ID from the hidden input
+            var locationId = document.getElementById('hiddenLocationId').value;
+
+            fetch(`http://localhost:3001/api/location/${locationId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Check if the API call was successful
+                if (data.success) {
+                    // Retrieve the latitude and longitude from the response
+                    const lat = data.values.latitude;
+                    const lng = data.values.longitude;
+
+                    // Set the local storage variable for the home location
+                    var coordinates = { lat: lat, lng: lng };
+                    localStorage.setItem('homeLocationCoords', JSON.stringify(coordinates));
+                    localStorage.setItem('homeLocationName', data.values.name);
+                    document.getElementById('homeLocationName').textContent = data.values.name;
+                } else {
+                    // Handle the case when the API call fails
+                    alert('Failed to retrieve location coordinates.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
 
         // Handle form submission for the ratings form
@@ -290,7 +417,11 @@
                 serviceQuality: document.getElementById('serviceQuality').value,
                 timeTaken: document.getElementById('timeTaken').value,
                 extraComments: document.getElementById('extraComments').value,
+                userId: localStorage.getItem('user_id'),
             };
+
+            // Time taken needs to be an integer
+            formData.timeTaken = parseInt(formData.timeTaken) || 0;
 
             fetch('http://localhost:3001/api/submit-rating', {
                 method: 'POST',
@@ -329,6 +460,12 @@
 
             if (checkUserLogin()) {
                 updateUserIcon();
+            }
+
+            // Update the home location name (WILL NEED TO BE UPDATED TO GRAB THE HOME LOCATION FROM THE DATABASE)
+            var homeLocationName = localStorage.getItem('homeLocationName');
+            if (homeLocationName) {
+                document.getElementById('homeLocationName').textContent = homeLocationName;
             }
         });
 
@@ -408,22 +545,22 @@
                 console.log(data);
                 if (data.success) {
                     // User is successfully validated
-                    // Store the login state in localStorage or sessionStorage
-                    localStorage.setItem('isLoggedIn', 'true');
-                    // Optionally, store user token or ID
-                    localStorage.setItem('userToken', data.token);
-                    // Store username or user ID for personalization
-                    localStorage.setItem('username', data.username); // Assuming 'username' is part of the response
 
-                    // Redirect user or update UI to indicate successful login
+                    // Store information about the user in local storage
+                    // Store the login state
+                    localStorage.setItem('isLoggedIn', 'true');
+                    // Store username
+                    localStorage.setItem('username', data.username);
+                    // Store user_id
+                    localStorage.setItem('user_id', data.user_id);
+
                     // Close the modal, hide the overlay, reset the form
                     document.getElementById('signInModal').style.display = 'none';
                     document.getElementById('mapOverlay').style.display = 'none';
                     document.getElementById('signInForm').reset();
-                    alert('Sign in successful!');
                     
-                    // Refresh the page to update the UI (this needed to be adjusted to do this without refreshing the page)
-                    window.location.reload();
+                    // Update the user icon
+                    updateUserIcon();
                 } else {
                     alert('Failed to sign in: ' + data.message);
                 }

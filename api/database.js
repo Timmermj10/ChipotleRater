@@ -12,11 +12,12 @@ app.use(bodyParser.json());
 
 // API endpoint to handle rating submissions
 app.post('/api/submit-rating', async (req, res) => {
-  const { locationId, foodQuality, foodAmount, serviceQuality, timeTaken, extraComments } = req.body;
+  const { locationId, foodQuality, foodAmount, serviceQuality, timeTaken, extraComments, userId } = req.body;
+  console.log(locationId, foodQuality, foodAmount, serviceQuality, timeTaken, extraComments, userId);
 
   try {
     const query = 'INSERT INTO reviews(user_id, location_id, food_quality, food_amount, service_quality, time_taken, extra_comments) VALUES($1, $2, $3, $4, $5, $6, $7)';
-    const values = [1, locationId, foodQuality, foodAmount, serviceQuality, timeTaken, extraComments];
+    const values = [userId, locationId, foodQuality, foodAmount, serviceQuality, timeTaken, extraComments];
 
     await pool.query(query, values);
 
@@ -41,6 +42,28 @@ app.get('/api/ratings/:locationId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching ratings', error);
     res.status(500).json({ message: 'Error fetching ratings' });
+  }
+});
+
+// API endpoint to get the latitude and longitude of a location
+app.get('/api/location/:locationId', async (req, res) => {
+  const { locationId } = req.params;
+
+  try {
+    const query = 'SELECT latitude, longitude, name FROM locations WHERE id = $1';
+    const values = [locationId];
+
+    const result = await pool.query(query, values);
+
+    if (result.rows.length === 0) {
+      res.status(404).json({ message: 'Location not found' });
+    } else {
+      const { latitude, longitude, name } = result.rows[0];
+      res.status(200).json({ values: {latitude, longitude, name}, success: true  });
+    }
+  } catch (error) {
+    console.error('Error fetching location', error);
+    res.status(500).json({ message: 'Error fetching location' });
   }
 });
 
@@ -81,7 +104,7 @@ app.post('/api/sign-in', async (req, res) => {
     result = await pool.query(query, values);
     
     if (result.rows.length === 1) {
-      res.status(200).json({ message: 'Login successful', success: true, username: result.rows[0].username });
+      res.status(200).json({ message: 'Login successful', success: true, username: result.rows[0].username, user_id: result.rows[0].id});
     } else {
       res.status(401).json({ message: 'Login failed, wrong password', success: false });
     }

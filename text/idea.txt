@@ -47,6 +47,20 @@ be linked to users accounts and what not. More design work needed on the databas
 
 7/9/2024
 Moved past the basic testing database that we were working with previously. Allowed for creation of accounts in a future update so users can be
-tied to their reviews on different Chipotles! Adjusted all of the database req uests as well as made a schema in the database folder. 
+tied to their reviews on different Chipotles! Adjusted all of the database requests as well as made a schema in the database folder. 
 Added mock reviews to different Chipotles and am able to view them separately! Very excited with what got done today and am looking to add user
 functionality next!
+
+7/16/2024
+The user signin and signup modals look a lot better now, took inspiration for styling from the Chipotle website. Made the adjustments to the icon clientside
+so you don't have to refresh the page everytime you login or logout. Made a sidebar for when the user is logged in so they can see information and logout.
+Added a remember me button so I can later add that the browser either forgets or remembers you.
+
+7/17/2024 
+Made some minor style changes to the sidebar. Thought about all the different items that might be useful on a sidebar. Started implementing a home location
+button where when you click it brings you to the location on the map so you can easily view the reviews. Big struggles on trying to style the sidebar today,
+might come back for more tomorrow, or I might start implenting viewing your own reviews or account settings, or styling the rating and view ratings modals. 
+IDK, so much to do. 
+Just for fun I got the home location update working, when you click on a location and select, set home location, local variables are set and the buttons text
+is updated, when you click on the button it takes you to the correct location! Also I will need to store the home location in the database!!!
+**I really need to clean up and comment the codebase sometime, it is getting a bit messy with all the functions**
