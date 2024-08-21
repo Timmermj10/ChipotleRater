@@ -1,0 +1,114 @@
+<!-- Sign In Modal -->
+<div id="signInModal" class="modal">
+    <span onclick="closeSignInModal(event)" class='close-button'>X</span>
+    <h2>Sign In</h2>
+    <form id="signInForm">
+        <div class="account-details">
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required>
+        </div>
+        
+        <div class="top-buttons">
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
+            <div class="forgot-password">
+                <button type="button" class="forgot-password" onclick="forgotPassword()">Forgot Password?</button>
+            </div>
+        </div>
+        <div class="bottom-buttons">
+            <button type="submit" class="login-button">Sign in</button> <!-- Separate button for login -->
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="signup-section">
+            <div class="signup-text">
+                <div class="no-account">
+                    <p>No account?</p>
+                </div>
+                <div class="create-account">
+                    <p>Start rating today!</p>
+                </div>
+            </div>
+            <div class="signup-button">
+                <button onclick="switchToSignUp(event)">Create an account</button>
+            </div>
+        </div> <!-- End of signup section -->
+    </form>
+</div>
+
+<!-- Account Creation Modal -->
+<div id="accountCreationModal" class="modal">
+    <span onclick="closeAccountCreationModal(event)" class='close-button'>X</span>
+    <h2>Create Account</h2>
+    <form id="accountCreationForm">
+        <div class="account-details">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="newPassword" name="newPassword" placeholder="Password" required>
+            <input type="password" id="newPasswordAgain" name="newPasswordAgain" placeholder="Confirm Password" required>
+        </div>
+        <div class="action-buttons">
+            <button type="submit" class="create-account-button">Create Account</button> <!-- Adjusted button for account creation -->
+        </div>
+        <div class="separator"></div>
+        <div class="signIn">
+            <div class="signInText">
+                <p>Already have an account?</p>
+            </div>
+            <div class="signInButton">
+                <button onclick="switchToSignIn(event)">Sign In</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Locaton viewing Modal -->
+<div id="locationModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
+    <span onclick="closeLocationModal()" class='close-button'>X</span>
+    <input type="hidden" id="hiddenLocationId" name="locationId"> <!-- This will be used to store the location ID -->
+    <div id="locationNameLocation">Name: </div>
+    <div id="locationAddress">Address: </div>
+    <div id="locationRatingGroup">
+        <div id="locationRating"></div>
+        <div class="stars">
+            <div class="percent" style="width: 0%;"></div>
+        </div>
+    </div>
+    <button onclick="openRatingModal()">Add Rating</button>
+    <button onclick="viewReviewsModalLocation()">View Ratings</button>
+    <button onclick="setHomeLocation()">Set Home Location</button>
+</div>
+
+<!-- Create Rating Modal -->
+<div id="ratingModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
+    <span onclick="closeRatingModal()" class='close-button'>X</span>
+    <h2 id="locationNameRating">Chipotle Name</h2>
+    <form id="ratingForm">
+        <label>Food Quality: <span id="foodQualityValue">0</span>/5</label>
+        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="foodQuality">
+        <label>Food Amount: <span id="foodAmountValue">0</span>/5</label>
+        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="foodAmount">
+        <label>Service Quality: <span id="serviceQualityValue">0</span>/5</label>
+        <input type="range" min="0" max="10" value="0" step="1" class="slider" id="serviceQuality">
+        <label>Time Taken (minutes):</label>
+        <input type="number" id="timeTaken">
+        <label for="extraComments">Extra Comments:</label>
+        <textarea id="extraComments" name="extraComments" rows="4" cols="50"></textarea>
+        <label>Attach Picture:</label>
+        <input type="file" id="foodPicture" accept="image/*">
+        <button type="submit">Submit Rating</button>
+    </form>
+</div>
+
+<!-- View Ratings Modal -->
+<div id="viewRatingsModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px; max-height: 80%; overflow-y: auto;">
+    <span onclick="closeViewReviewsModal()" class='close-button'>X</span>
+    <h2>Ratings</h2>
+    <div id="ratingsContainer" style="overflow-y: auto; max-height: 300px;"></div>
+</div>
+
+<!-- Transparent overlay to prevent map interactions when the modal is open -->
+<div id="mapOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 400; display: none;"></div>

@@ -64,3 +64,15 @@ IDK, so much to do.
 Just for fun I got the home location update working, when you click on a location and select, set home location, local variables are set and the buttons text
 is updated, when you click on the button it takes you to the correct location! Also I will need to store the home location in the database!!!
 **I really need to clean up and comment the codebase sometime, it is getting a bit messy with all the functions**
+
+7/18/2024 
+Made new table (home_locations) to store the user_ids and location_ids for the home location of each user! Updated the logic to first check local storage, and
+if not there check the database (plus add it to local storage if it is in the database). I also made a zoom feature for the home location 
+and review locations. When you click on the name of the location associated, the map automatically zooms in on that location.
+Lastly I implemented the average rating logic in both the Database and JS Front End, still could use some work, but the values update!
+
+7/24/2024
+Implemented image uploading!!! WOHOOO. This was a pain in the ass, had to read a few articles and heavily work back and forth with
+GitHub Copilot to get this working. Ended up storing the images as base64Strings which isn't amazing for performance but it works.
+Happy to have this implemented, got inspiration to implement this from an Instagram influencer that I follow, he implemented image
+uploading on a startup that he is working on, so I figured I might as well implement it too :)

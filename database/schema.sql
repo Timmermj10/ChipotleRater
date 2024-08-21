@@ -33,7 +33,19 @@ CREATE TABLE IF NOT EXISTS reviews (
     service_quality INTEGER NOT NULL,
     time_taken INTEGER NOT NULL,
     extra_comments TEXT,
+    image_type VARCHAR(255),
+    image_name VARCHAR(255),
+    image_data TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (location_id) REFERENCES locations(id)
+);
+
+-- Home locations table to store user's home location
+CREATE TABLE IF NOT EXISTS home_locations (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL UNIQUE,
+    location_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (location_id) REFERENCES locations(id)
 );

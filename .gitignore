@@ -1,1 +1,6 @@
 api/dbConfig.js
+node_modules/
+node_modules/.package-lock.json
+.vscode/
+package-lock.json
+package.json

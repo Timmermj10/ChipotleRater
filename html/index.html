@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chipotle Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="../js/helperFunctions.js"></script>
+</head>
+<body>
+    <!-- Banner -->
+    <div id="banner">Chipotle Rater</div>
+
+    <!-- Map Overlay (Login Button) -->
+    <div id="map">
+        <div id="createAccountIcon" onclick="openSignInModal()">
+            <img src="../images/add-user.png" alt="Create Account" style="width: 50px; height: 50px;"> <!-- <a href="https://www.flaticon.com/free-icons/add-user" title="add user icons">Add user icons created by Good Ware - Flaticon</a> -->
+        </div>
+    </div>
+
+    <!-- Sidebar for User Information -->
+    <div id="userSidebar" class="sidebar">
+        <span onclick="closeAccountInfoSidebar()" class='close-button'>X</span>
+        <h2>User Information</h2>
+        <p id="usernameDisplay">Username: </p>
+
+        <div class="home-location">
+            <span id="homeLocation">Home Location: </span>
+            <button id="homeLocationName" onclick="zoomToLocation(localStorage.getItem('homeLocationCoords'))">New York City</button>
+        </div>
+
+        <div class="view-my-reviews">
+            <button id="homeLocationBtn" onclick="viewReviewsModalUser()">View my Reviews</button>
+        </div>
+
+        <div class="account-settings">
+            <button id="accountSettingsButton">Account Settings</button> 
+        </div>
+
+        <div class="logout-button">
+            <button id="logoutButton" onclick="logoutUser()">Logout</button> 
+        </div>
+    </div>
+
+    <!-- Placeholder for modals -->
+    <div id="modals-container"></div>
+
+    <!-- Load Modals -->
+    <script src="../js/loadModals.js"></script>
+
+    <!-- Dom Initialization -->
+    <script src="../js/dom.js"></script>
+
+    <!-- Form Submission -->
+    <script src="../js/form.js"></script>
+
+    <!-- Map Initialization -->
+    <script src="../js/map.js"></script>
+</body>
+</html>
