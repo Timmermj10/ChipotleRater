@@ -52,6 +52,9 @@ function closeRatingModal() {
 
     // Hide the rating modal
     document.getElementById('ratingModal').style.display = 'none';
+
+    // Reset the file input to clear the image
+    document.getElementById('foodPicture').value = '';
 }
 
 function viewReviewsModalLocation() {

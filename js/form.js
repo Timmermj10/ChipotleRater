@@ -65,6 +65,9 @@ function addEventListeners() {
             // Update the average rating
             updateAverageRating(formData);
         }
+
+        // Reset the file input to clear the image
+        document.getElementById('foodPicture').value = '';
     });
 
     // Listen for account creation

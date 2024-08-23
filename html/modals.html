@@ -103,6 +103,16 @@
     </form>
 </div>
 
+<!-- Crop Image Modal -->
+<div id="cropImageModal" class="modal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px;">
+    <span onclick="closeCropImageModal()" class='close-button'>X</span>
+    <h2>Crop Image</h2>
+    <div class="crop-container">
+        <img id="imageToCrop" src="">
+    </div>
+    <button id="cropButton">Crop</button>
+</div>
+
 <!-- View Ratings Modal -->
 <div id="viewRatingsModal" style="display:none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; z-index: 1000; border-radius: 10px; max-height: 80%; overflow-y: auto;">
     <span onclick="closeViewReviewsModal()" class='close-button'>X</span>
