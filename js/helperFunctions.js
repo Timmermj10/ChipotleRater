@@ -60,7 +60,7 @@ function viewReviewsModalLocation() {
     fetch(`http://localhost:3001/api/ratings/${locationId}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // Display the ratings
             displayRatings(data);
 
             // Show the view ratings modal
@@ -74,6 +74,7 @@ function viewReviewsModalUser() {
     fetch(`http://localhost:3001/api/user-reviews/${userId}`)
         .then(response => response.json())
         .then(data => {
+            // Display the ratings
             displayRatings(data);
 
             // Show the view ratings modal
