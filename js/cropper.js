@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function finishCrop() {
+    // Listen for an added picture
     document.getElementById('foodPicture').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -23,6 +24,14 @@ function finishCrop() {
             reader.onload = function(e) {
                 document.getElementById('imageToCrop').src = e.target.result;
                 document.getElementById('cropImageModal').style.display = 'block';
+
+                // Destroy the existing cropper instance if it exists
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+                
+                // Create the new cropper instance
                 cropper = new Cropper(document.getElementById('imageToCrop'), {
                     aspectRatio: 1,
                     viewMode: 1,
@@ -32,6 +41,7 @@ function finishCrop() {
         }
     });
 
+    // Listen for the crop button to be clicked
     document.getElementById('cropButton').addEventListener('click', function() {
         const canvas = cropper.getCroppedCanvas();
         canvas.toBlob(function(blob) {
@@ -47,13 +57,25 @@ function finishCrop() {
 
             // Hide the crop modal
             document.getElementById('cropImageModal').style.display = 'none';
+
+            // Clear the image source
+            document.getElementById('imageToCrop').src = '';
         });
     });
 }
 
+// Function used to close the crop image modal and clean up the necessary elements
 function closeCropImageModal() {
+    // Update the foodPicture value and close the modal
+    document.getElementById('foodPicture').value = '';
     document.getElementById('cropImageModal').style.display = 'none';
+
+    // If there is a cropper instance, destroy it
     if (cropper) {
         cropper.destroy();
+        cropper = null;
     }
+
+    // Clear the image source
+    document.getElementById('imageToCrop').src = '';
 }

@@ -1,3 +1,10 @@
+async function encryptPassword(password, salt) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password + salt);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Ensure modals are loaded before executing modal-related code
     function waitForModals() {
@@ -11,15 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
     waitForModals();
 });
 
+// Add event listener for submission of the rating, account creation, and sign in forms
 function addEventListeners() {
-    // Handle form submission for the ratings form
+    // Listen for rating submission
     document.getElementById('ratingForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
         const fileInput = document.getElementById('foodPicture');
         const file = fileInput.files[0];
 
-        // If a file was uploaded, wait for it to be processed
+        // If a picture was submitted, process it
         if (file) {
             processFile(file)
                 .then(imageInfo => {
@@ -35,8 +43,6 @@ function addEventListeners() {
                         foodImageBytes: imageInfo.foodImageBytes,
                         userId: localStorage.getItem('user_id'),
                     };
-                    console.log(formData);
-                    console.log(JSON.stringify(formData));
 
                     // Submit the form data
                     submitRating(formData);
@@ -45,7 +51,7 @@ function addEventListeners() {
                     updateAverageRating(formData);
                 })
                 .catch(error => console.error('Error:', error));
-        }
+        } 
         else {
             const formData = { 
                 locationId: document.getElementById('hiddenLocationId').value,
@@ -56,8 +62,6 @@ function addEventListeners() {
                 extraComments: document.getElementById('extraComments').value,
                 userId: localStorage.getItem('user_id'),
             };
-            console.log(formData);
-            console.log(JSON.stringify(formData));
 
             // Submit the form data
             submitRating(formData);
@@ -72,102 +76,124 @@ function addEventListeners() {
 
     // Listen for account creation
     document.getElementById('accountCreationForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting the traditional way
+        event.preventDefault();
 
         const formData = {
             username: document.getElementById('username').value,
             email: document.getElementById('email').value,
-            password: document.getElementById('newPassword').value,
-            confirmPassword: document.getElementById('newPasswordAgain').value,
         };
 
         // Email validation
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email pattern
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(formData.email)) {
             alert('Please enter a valid email address.');
-            return; // Stop the function if the email is invalid
+            return;
         }
 
         // Password match validation
-        if (formData.password !== formData.confirmPassword) {
+        if (document.getElementById('newPassword').value !== document.getElementById('newPasswordAgain').value) {
             alert('The passwords do not match.');
-            return; // Stop the function if the passwords do not match
+            return;
         }
 
-        // Simple client-side validation example (should be more comprehensive)
-        if (formData.password.length < 8) {
+        // Simple client-side password strength validation
+        if (document.getElementById('newPassword').value.length < 8) {
             alert('Password must be at least 8 characters long.');
             return;
         }
 
-        fetch('http://localhost:3001/api/create-account', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.success) {
-                // Close the modal and reset the form
-                document.getElementById('accountCreationModal').style.display = 'none';
-                document.getElementById('mapOverlay').style.display = 'none';
-                document.getElementById('accountCreationForm').reset();
-                alert('Account created successfully!');
-            } else {
-                alert('Failed to create account: ' + data.message);
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        // TODO: Salt the password before sending it to the server
+        (async function() {
+            const salt = crypto.getRandomValues(new Uint8Array(16)).join('');
+            const encryptedPassword = await encryptPassword(document.getElementById('newPassword').value, salt);
+    
+            formData['salt'] = salt;
+            formData['password'] = encryptedPassword;
+    
+            // Pass the form data to the server
+            fetch('http://localhost:3001/api/create-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Close the modal and reset the form
+                    document.getElementById('accountCreationModal').style.display = 'none';
+                    document.getElementById('mapOverlay').style.display = 'none';
+                    document.getElementById('accountCreationForm').reset();
+                    alert('Account created successfully!');
+                } else {
+                    alert('Failed to create account: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        })();
     });
 
-    // Listen for sign in form submission
+    // Listen for sign in
     document.getElementById('signInForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting the traditional way
+        event.preventDefault();
 
         const formData = {
             email: document.getElementById('loginEmail').value,
             password: document.getElementById('loginPassword').value,
         };
-        
-        fetch('http://localhost:3001/api/sign-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
+
+        // Get the salt from the server for the account that is trying to be accessed
+        fetch(`http://localhost:3001/api/get-salt/${formData.email}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.success) {
-                // User is successfully validated
-
-                // Store information about the user in local storage
-                // Store the login state
-                localStorage.setItem('isLoggedIn', 'true');
-                // Store username
-                localStorage.setItem('username', data.username);
-                // Store user_id
-                localStorage.setItem('user_id', data.user_id);
-
-                // Close the modal, hide the overlay, reset the form
-                document.getElementById('signInModal').style.display = 'none';
-                document.getElementById('mapOverlay').style.display = 'none';
-                document.getElementById('signInForm').reset();
-                
-                // Update the user icon
-                updateUserIcon();
+                // Salt the password before sending it to the server
+                (async function() {
+                    const encryptedPassword = await encryptPassword(formData.password, data.salt);
+                    formData['password'] = encryptedPassword;
+                    attemptSignIn(formData)
+                })();
             } else {
                 alert('Failed to sign in: ' + data.message);
             }
         })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    });
+}
+
+function attemptSignIn(formData) { 
+    // Pass the form data to the server
+    fetch('http://localhost:3001/api/sign-in', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // User is successfully validated (email and password match)
+
+            // Store information about the user in local storage
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('user_id', data.user_id);
+
+            // Close the modal, hide the overlay, reset the form
+            document.getElementById('signInModal').style.display = 'none';
+            document.getElementById('mapOverlay').style.display = 'none';
+            document.getElementById('signInForm').reset();
+            
+            // Update the user icon
+            updateUserIcon();
+        } else {
+            alert('Failed to sign in: ' + data.message);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
     });
 }

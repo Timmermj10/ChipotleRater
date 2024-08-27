@@ -650,3 +650,70 @@ input:focus {
 #cropButton:hover {
     background-color: #AC2318;
 }
+
+/* Sidebar for User Information */
+#userSidebar {
+    display: flex;
+    flex-direction: column;
+}
+/* #userSidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    color: #441500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+} */
+
+/* Sidebar content */
+#userSidebar h2, #userSidebar p {
+    padding: 10px 15px;
+    text-align: center;
+    width: 100%;
+}
+
+#userSidebar .home-location,
+#userSidebar .view-my-reviews,
+#userSidebar .account-settings,
+#userSidebar .logout-button {
+    width: 90%;
+    margin: 10px 0;
+}
+
+#userSidebar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #441500;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+#userSidebar button:hover {
+    background-color: #AC2318;
+}
+
+/* Close button styles */
+#userSidebar .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #441500;
+}

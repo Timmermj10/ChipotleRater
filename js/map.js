@@ -1,3 +1,5 @@
+// Initialization of the map and markers
+
 // Initialize the map
 var map = L.map('map', {
     attributionControl: false,
@@ -7,13 +9,18 @@ var map = L.map('map', {
 // For zoomed out viewing
 var customIcon = L.divIcon({
     className: 'custom-icon',
-    html: '<div style="background-color: rgba(68, 21, 0, 1); border-radius: 50%; width: 40px; height: 40px;"><img src="../images/burrito.png" style="width: 20px; height: 20px; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>',
+    html: `<div style="background-color: rgba(68, 21, 0, 1); border-radius: 50%; width: 40px; height: 40px;">
+        <img src="../images/burrito.png" 
+        style="width: 20px; height: 20px; position: relative; 
+        top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    </div>`,
     // Credits for the burrito icon: <a href="https://www.flaticon.com/free-icons/burrito" title="burrito icons">Burrito icons created by IconsNova - Flaticon</a>
     iconSize: [25, 25], // Size of the icon
     iconAnchor: [20, 0], // Point of the icon which will correspond to marker's location
     popupAnchor: [0, 0] // Point from which the popup should open relative to the iconAnchor
 });
 
+// Add the OpenStreetMap tiles to the map and set the max zoom level
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
 }).addTo(map);
@@ -23,7 +30,7 @@ var markers = L.markerClusterGroup({
     showCoverageOnHover: false // This removes the blue polygon that shows the coverage of the cluster
 });
 
-// Fetch Chipotle locations from your API
+// Fetch Chipotle locations from server
 fetch('http://localhost:3001/api/chipotle-locations')
     .then(response => response.json())
     .then(data => {
@@ -48,16 +55,7 @@ fetch('http://localhost:3001/api/chipotle-locations')
             
             // Update the onClick function for the markers to display the modal
             marker.on('click', function() {
-                document.getElementById('locationNameLocation').textContent = location.name;
-                document.getElementById('locationAddress').textContent = location.address;
-                document.getElementById('locationNameRating').textContent = location.name;
-                document.getElementById('hiddenLocationId').value = this.options.locationId;
-                
-                // Update the average rating of the location
-                updateAverageRating({ locationId: this.options.locationId });
-
-                // Call the openLocationModal function
-                openLocationModal();
+                updateLocationValuesAndOpen(location);
             });
 
             // Adjustments to the tooltip

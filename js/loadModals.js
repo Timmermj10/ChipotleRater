@@ -1,4 +1,4 @@
-// Function to load modals.html content into the modals-container div
+// Load modals.html content and insert into the modals-container div
 function loadModals() {
     fetch('../html/modals.html')
         .then(response => response.text())

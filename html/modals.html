@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="bottom-buttons">
-            <button type="submit" class="login-button">Sign in</button> <!-- Separate button for login -->
+            <button type="submit" class="login-button">Sign in</button>
         </div>
 
         <div class="separator"></div>
@@ -35,7 +35,7 @@
             <div class="signup-button">
                 <button onclick="switchToSignUp(event)">Create an account</button>
             </div>
-        </div> <!-- End of signup section -->
+        </div>
     </form>
 </div>
 
@@ -51,7 +51,7 @@
             <input type="password" id="newPasswordAgain" name="newPasswordAgain" placeholder="Confirm Password" required>
         </div>
         <div class="action-buttons">
-            <button type="submit" class="create-account-button">Create Account</button> <!-- Adjusted button for account creation -->
+            <button type="submit" class="create-account-button">Create Account</button>
         </div>
         <div class="separator"></div>
         <div class="signIn">
@@ -89,16 +89,22 @@
     <form id="ratingForm">
         <label>Food Quality: <span id="foodQualityValue">0</span>/5</label>
         <input type="range" min="0" max="10" value="0" step="1" class="slider" id="foodQuality">
+
         <label>Food Amount: <span id="foodAmountValue">0</span>/5</label>
         <input type="range" min="0" max="10" value="0" step="1" class="slider" id="foodAmount">
+
         <label>Service Quality: <span id="serviceQualityValue">0</span>/5</label>
         <input type="range" min="0" max="10" value="0" step="1" class="slider" id="serviceQuality">
+
         <label>Time Taken (minutes):</label>
-        <input type="number" id="timeTaken">
+        <input type="number" id="timeTaken" placeholder="10">
+
         <label for="extraComments">Extra Comments:</label>
-        <textarea id="extraComments" name="extraComments" rows="4" cols="50"></textarea>
+        <textarea id="extraComments" name="extraComments" rows="4" cols="50" placeholder="Friendly staff!"></textarea>
+
         <label>Attach Picture:</label>
         <input type="file" id="foodPicture" accept="image/*">
+
         <button type="submit">Submit Rating</button>
     </form>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chipotle Locations</title>
+    <title>Chipotle Rater</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
@@ -26,22 +26,20 @@
     <!-- Sidebar for User Information -->
     <div id="userSidebar" class="sidebar">
         <span onclick="closeAccountInfoSidebar()" class='close-button'>X</span>
-        <h2>User Information</h2>
-        <p id="usernameDisplay">Username: </p>
-
+        <h2 id="usernameDisplay">User Information</h2>
+    
         <div class="home-location">
-            <span id="homeLocation">Home Location: </span>
-            <button id="homeLocationName" onclick="zoomToLocation(localStorage.getItem('homeLocationCoords'))">New York City</button>
+            <button id="homeLocationName" onclick="homeLocationClick()">New York City</button>
         </div>
-
+    
         <div class="view-my-reviews">
             <button id="homeLocationBtn" onclick="viewReviewsModalUser()">View my Reviews</button>
         </div>
-
+    
         <div class="account-settings">
             <button id="accountSettingsButton">Account Settings</button> 
         </div>
-
+    
         <div class="logout-button">
             <button id="logoutButton" onclick="logoutUser()">Logout</button> 
         </div>

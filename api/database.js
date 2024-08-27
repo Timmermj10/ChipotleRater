@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Import the cors module
+const cors = require('cors');
 const pool = require('./dbconfig'); // Import the PostgreSQL connection pool (make sure that the databse info is not in the GitHub repo!)
 
 const app = express();
 const port = 3001;
 
-app.use(cors()); // Use cors middleware to enable CORS
+app.use(cors());
 app.use(express.json({ limit: '50mb' })); // Make the app use JSON and set the limit to 50mb
 
 app.use(bodyParser.json());
@@ -58,6 +58,9 @@ app.post('/api/average-rating/:locationId', async (req, res) => {
         )
       WHERE id = $1;
     `;
+
+    // TODO - Grab the average rating from the locations table in the POST request
+    
     const values = [locationId];
 
     const results = await pool.query(query, values);
@@ -113,12 +116,12 @@ app.get('/api/ratings/:locationId', async (req, res) => {
   }
 });
 
-// API endpoint to get the latitude, longitude, and name of a specific location
+// API endpoint to get the latitude, longitude, name, and address of a specific location
 app.get('/api/location/:locationId', async (req, res) => {
   const { locationId } = req.params;
 
   try {
-    const query = 'SELECT latitude, longitude, name FROM locations WHERE id = $1';
+    const query = 'SELECT latitude, longitude, name, address FROM locations WHERE id = $1';
     const values = [locationId];
 
     const result = await pool.query(query, values);
@@ -126,8 +129,8 @@ app.get('/api/location/:locationId', async (req, res) => {
     if (result.rows.length === 0) {
       res.status(404).json({ message: 'Location not found' });
     } else {
-      const { latitude, longitude, name } = result.rows[0];
-      res.status(200).json({ values: {latitude, longitude, name}, success: true  });
+      const { latitude, longitude, name, address } = result.rows[0];
+      res.status(200).json({ values: {latitude, longitude, name, address}, success: true  });
     }
   } catch (error) {
     console.error('Error fetching location', error);
@@ -180,11 +183,11 @@ app.get('/api/user-reviews/:userId', async (req, res) => {
 
 // API endpoint to handle account creation
 app.post('/api/create-account', async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, salt, password } = req.body;
 
   try {
-    const query = 'INSERT INTO users(username, email, password_hash) VALUES($1, $2, $3)';
-    const values = [username, email, password];
+    const query = 'INSERT INTO users(username, email, salt, password_hash) VALUES($1, $2, $3, $4)';
+    const values = [username, email, salt, password];
 
     await pool.query(query, values);
 
@@ -200,19 +203,10 @@ app.post('/api/sign-in', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    let query = 'SELECT * FROM users WHERE email = $1';
-    let values = [email];
+    const query = 'SELECT * FROM users WHERE email = $1 AND password_hash = $2';
+    const values = [email, password];
 
-    let result = await pool.query(query, values);
-
-    if (result.rows.length === 0) {
-      res.status(200).json({ message: 'No account with email', success: false });
-    }
-
-    query = 'SELECT * FROM users WHERE email = $1 AND password_hash = $2';
-    values = [email, password];
-
-    result = await pool.query(query, values);
+    const result = await pool.query(query, values);
     
     if (result.rows.length === 1) {
       res.status(200).json({ message: 'Login successful', success: true, username: result.rows[0].username, user_id: result.rows[0].id});
@@ -222,6 +216,27 @@ app.post('/api/sign-in', async (req, res) => {
   } catch (error) {
     console.error('Error logging in', error);
     res.status(500).json({ message: 'Error logging in', success: false });
+  }
+});
+
+// API endpoint to get the salt for the given email
+app.get('/api/get-salt/:email', async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const values = [email];
+
+    const result = await pool.query(query, values);
+
+    if (result.rows.length === 0) {
+      res.status(200).json({ message: 'No account with email', success: false });
+    }
+
+    res.status(200).json({ message: 'Salt fetched successfully', success: true, salt: result.rows[0].salt });
+  } catch (error) {
+    console.error('Error fetching salt', error);
+    res.status(500).json({ message: 'Error fetching salt' });
   }
 });
 

@@ -1,18 +1,58 @@
-// Reset the sliders to their default values
+// Reset the sliders to their default values and clear the comment section
 function resetSliders() {
+    // Slider value
     document.getElementById('foodQuality').value = 0;
     document.getElementById('foodAmount').value = 0;
     document.getElementById('serviceQuality').value = 0;
 
-    // Update the displayed slider values if you have dynamic labels
+    // Slider text
     document.getElementById('foodQualityValue').textContent = '0';
     document.getElementById('foodAmountValue').textContent = '0';
     document.getElementById('serviceQualityValue').textContent = '0';
 
-    // Optionally, reset the extra comments section
+    // Comment section
     document.getElementById('extraComments').value = '';
 }
 
+// Update the name, address, and average rating of the location modal and open it
+function updateLocationValuesAndOpen(location) {
+    document.getElementById('locationNameLocation').textContent = location.name;
+    document.getElementById('locationAddress').textContent = location.address;
+    document.getElementById('locationNameRating').textContent = location.name;
+    document.getElementById('hiddenLocationId').value = location.id;
+    
+    // Update the average rating of the location
+    updateAverageRating({ locationId: location.id });
+
+    // Call the openLocationModal function
+    openLocationModal();
+}
+
+// Single function to handle modal opening and closing
+// TODO - WRITE LOGIC FOR ALL THE CASES INCLUDING THE SIGN IN REDIRECTIONS
+
+function toggleModal(modalId) {
+    // Display / hide the modal
+    const modal = document.getElementById(modalId);
+    if (modal.style.display === 'block') {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'block';
+    }
+
+    // Display / hide the overly
+    const overlay = document.getElementById('mapOverlay');
+    if (modalId in ['locationModal', 'ratingModal', 'viewRatingsModal']) {
+        if (overlay.style.display === 'block') {
+            overlay.style.display = 'none';
+        } else {
+            overlay.style.display = 'block';
+        }
+    }
+}
+// WIP - TO BE COMPLETED
+
+// Display the location modal
 function openLocationModal() {
     // Show the modal
     document.getElementById('locationModal').style.display = 'block';
@@ -21,6 +61,7 @@ function openLocationModal() {
     document.getElementById('mapOverlay').style.display = 'block';
 }
 
+// Hide the location modal
 function closeLocationModal() {
     // Hide the modal
     document.getElementById('locationModal').style.display = 'none';
@@ -29,7 +70,7 @@ function closeLocationModal() {
     document.getElementById('mapOverlay').style.display = 'none';
 }
 
-// Functions for the rating modal
+// Display the rating modal
 function openRatingModal() {
     // The overlay will still be up from the location and rating modals
 
@@ -47,6 +88,7 @@ function openRatingModal() {
     document.getElementById('ratingModal').style.display = 'block';
 }
 
+// Hide the rating modal
 function closeRatingModal() {
     // The overlay will still be up from the location modal
 
@@ -55,11 +97,14 @@ function closeRatingModal() {
 
     // Reset the file input to clear the image
     document.getElementById('foodPicture').value = '';
+
+    // Reset the sliders to their default values
+    resetSliders();
 }
 
+// Query server for locations ratings and display them in the view ratings modal
 function viewReviewsModalLocation() {
     const locationId = document.getElementById('hiddenLocationId').value;
-    console.log(locationId);
     fetch(`http://localhost:3001/api/ratings/${locationId}`)
         .then(response => response.json())
         .then(data => {
@@ -72,6 +117,7 @@ function viewReviewsModalLocation() {
         .catch(error => console.error('Error:', error));
 }
 
+// Query server for users ratings and display them in the view ratings modal
 function viewReviewsModalUser() {
     const userId = localStorage.getItem('user_id');
     fetch(`http://localhost:3001/api/user-reviews/${userId}`)
@@ -86,6 +132,7 @@ function viewReviewsModalUser() {
         .catch(error => console.error('Error:', error));
 }
 
+// Close the view ratings modal
 function closeViewReviewsModal() {
     // The overlay will still be up from the location modal
 
@@ -93,6 +140,7 @@ function closeViewReviewsModal() {
     document.getElementById('viewRatingsModal').style.display = 'none';
 }
 
+// Add ratings to the view ratings modal
 function displayRatings(ratings) {
     const ratingsContainer = document.getElementById('ratingsContainer');
     ratingsContainer.innerHTML = ''; // Clear previous ratings
@@ -103,7 +151,7 @@ function displayRatings(ratings) {
 
         const locationNameP = document.createElement('button');
         locationNameP.textContent = `Location: ${rating.location_name}`;
-        locationNameP.onclick = () => fetchAndZoomToLocation(rating.location_id);
+        locationNameP.onclick = () => reviewLocationClick(rating.location_id);
         locationNameP.classList.add('location-name-viewReviews');
 
         const qualityP = document.createElement('p');
@@ -124,21 +172,21 @@ function displayRatings(ratings) {
 
         const imageP = document.createElement('img');
         imageP.src = `data:${rating.image_type};base64,${rating.image_data}`;
+        // If there is no image associated with the rating
+        if (!rating.image_data) {
+            imageP.src = '../images/burrito.png';
+        }
         imageP.classList.add('location-image-viewReviews');
 
         // Append the new elements to the reviewDiv
-        reviewDiv.appendChild(locationNameP);
-        reviewDiv.appendChild(qualityP);
-        reviewDiv.appendChild(amountP);
-        reviewDiv.appendChild(serviceP);
-        reviewDiv.appendChild(commentP);
-        reviewDiv.appendChild(imageP);
+        [locationNameP, qualityP, amountP, serviceP, commentP, imageP].forEach(element => {reviewDiv.appendChild(element);});
 
         // Append the reviewDiv to the reviewsContainer
         ratingsContainer.appendChild(reviewDiv);
     });
 }
 
+// Display the sign in modal
 function openSignInModal() {
     // Show the overlay (to prevent map interactions when the modal is open)
     document.getElementById('mapOverlay').style.display = 'block';
@@ -147,6 +195,7 @@ function openSignInModal() {
     document.getElementById('signInModal').style.display = 'block';
 }
 
+// Hide the sign in modal
 function closeSignInModal() {
     // Show the overlay (to prevent map interactions when the modal is open)
     document.getElementById('mapOverlay').style.display = 'none';
@@ -155,6 +204,7 @@ function closeSignInModal() {
     document.getElementById('signInModal').style.display = 'none';
 }
 
+// Display the account creation modal
 function openAccountCreationModal() {
     // Show the overlay (to prevent map interactions when the modal is open)
     document.getElementById('mapOverlay').style.display = 'block';
@@ -163,6 +213,7 @@ function openAccountCreationModal() {
     document.getElementById('accountCreationModal').style.display = 'block';
 }
 
+// Hide the account creation modal
 function closeAccountCreationModal() {
     // Hide the overlay
     document.getElementById('mapOverlay').style.display = 'none';
@@ -171,6 +222,7 @@ function closeAccountCreationModal() {
     document.getElementById('accountCreationModal').style.display = 'none';
 }
 
+// Hide the user info sidebar
 function closeAccountInfoSidebar() {
     // Hide the overlay
     // document.getElementById('mapOverlay').style.display = 'none';
@@ -179,6 +231,7 @@ function closeAccountInfoSidebar() {
     document.getElementById('userSidebar').classList.remove('open');
 }
 
+// Transfer between the sign in and account creation modals
 function switchToSignUp(event) {
     if (event) {
         event.preventDefault();
@@ -187,6 +240,7 @@ function switchToSignUp(event) {
     openAccountCreationModal(); // Open the Account Creation Modal
 }
 
+// Transfer between the sign in and account creation modals
 function switchToSignIn(event) {
     if (event) {
         event.preventDefault();
@@ -195,6 +249,7 @@ function switchToSignIn(event) {
     openSignInModal(); // Close the Sign In Modal
 }
 
+// Logout the user
 function logoutUser() {
     // Remove the user token from localStorage
     localStorage.clear();
@@ -207,13 +262,13 @@ function logoutUser() {
     updateUserIcon();
 }
 
-// Function to check if the user is logged in
+// Check if the user is logged in
 function checkUserLogin() {
     // Example check for user token in localStorage
     return localStorage.getItem('isLoggedIn') !== null;
 }
 
-// Function to change the icon and set up the new click behavior
+// Change the icon and set up the new onclick behavior
 function updateUserIcon() {
     const userIcon = document.getElementById('createAccountIcon');
     const userName = localStorage.getItem('username'); // Assuming the username is stored in localStorage
@@ -225,14 +280,13 @@ function updateUserIcon() {
         // Change the onclick behavior to show the username
         userIcon.onclick = function() {
             // Update the sidebar content
-            document.getElementById('usernameDisplay').textContent = "Username: " + `${userName}`;
+            document.getElementById('usernameDisplay').textContent = `${userName}`;
             // document.getElementById('homeLocation').textContent = "Home Location: " + homeLocation;
             // document.getElementById('recentReview').textContent = "Recent Review: " + recentReview;
 
             // Show the sidebar
             document.getElementById('userSidebar').classList.add('open');
         };
-        // console.log('User is logged in');
     } else {
         // User is not logged in, change the icon back to the default create account icon
         userIcon.innerHTML = '<img src="../images/add-user.png" alt="Create Account" style="width: 50px; height: 50px;">'
@@ -241,11 +295,10 @@ function updateUserIcon() {
         userIcon.onclick = function() {
             openSignInModal();
         };
-        // console.log('User is logged out');
     }
 }
 
-// Example using a generic map object
+// Zoom to given location
 function zoomToLocation(location) {
     // Check if a home location was found in local storage
     if (location) {
@@ -255,12 +308,77 @@ function zoomToLocation(location) {
         lng = locationObj.lng;
 
         // Use the coordinates to set the map's view
-        map.setView([lat, lng], 18);
+        map.setView([lat, lng], 15);
     }
     // If there is no home location
     else {
         alert('No location found');
     }
+}
+
+// When a user clicks on the home location button within the user info sidebar
+function homeLocationClick() {
+    // Get the home location of the user
+    fetch(`http://localhost:3001/api/home-location/${localStorage.getItem('user_id')}`)
+        .then(response => response.json())
+        .then(data => {
+            // Check if the API call was successful
+            if (data.success) {
+                // Get the name and address of the home location
+                fetch(`http://localhost:3001/api/location/${data.locationId}`)
+                    .then(response => response.json())
+                    .then(location => {
+                        // Check if the API call was successful
+                        if (location.success) {
+                            // Add the location id to the location
+                            location.values.id = data.locationId;
+
+                            // Update the location values and open the location modal
+                            updateLocationValuesAndOpen(location.values);
+
+                            // Zoom to location
+                            zoomToLocation(JSON.stringify({ lat: location.values.latitude, lng: location.values.longitude }));
+                        } else {
+                            // Handle the case when the API call fails
+                            alert('Failed to retrieve home location info.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                // Handle the case when the API call fails
+                alert('Failed to retrieve home location id.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+// When a user clicks on the location within the review tab
+function reviewLocationClick(locationId) {
+    // Get the name and address of the home location
+    fetch(`http://localhost:3001/api/location/${locationId}`)
+        .then(response => response.json())
+        .then(location => {
+            // Check if the API call was successful
+            if (location.success) {
+                // Add the location id to the location
+                location.values.id = locationId;
+
+                // Update the location values and open the location modal
+                updateLocationValuesAndOpen(location.values);
+
+                // Zoom to location
+                zoomToLocation(JSON.stringify({ lat: location.values.latitude, lng: location.values.longitude }));
+            } else {
+                // Handle the case when the API call fails
+                alert('Failed to retrieve home location info.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    // Close the view ratings modal
+    closeViewReviewsModal();
 }
 
 // Function to set the home location
@@ -316,7 +434,7 @@ function setHomeLocation(locationId) {
     })
 }
 
-// Function to go from locationId to locationCoordinates
+// locationId to locationCoordinates transformer
 function locationCords(locationId) {
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:3001/api/location/${locationId}`)
@@ -348,7 +466,7 @@ function fetchAndZoomToLocation(locationId) {
         });
 }
 
-// Submit a rating to the database
+// Submit a rating to the server
 function submitRating(formData) {
     fetch('http://localhost:3001/api/submit-rating', {
         method: 'POST',
